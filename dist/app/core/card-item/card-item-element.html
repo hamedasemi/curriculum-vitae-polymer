@@ -1,0 +1,213 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<link rel="import" href="/app/shared/shared-layout/shared-layout.html">
+<link rel="import" href="/app/shared/shared-content/shared-content.html">
+
+<dom-module id="card-item-element">
+    <template>
+        <style include="shared-layout"></style>
+        <style include="shared-content"></style>
+        <style>
+
+            :host  {
+                @apply(--flex-column);
+                background-color: white;
+                background-color: #E9F3DF;
+                margin-bottom: 1em;
+                /* flex-grow: 1; */
+                overflow: hidden;
+            }
+
+            :host-context([small]) {
+                -ms-flex-preferred-size: 33%;
+                    flex-basis: 33%;
+            }
+
+            :host-context([x-large]) {
+                -ms-flex-preferred-size: 33%;
+                    flex-basis: 33%;
+            }
+
+            highlight-container {
+                position: absolute;
+                width: 100%;
+                left: 0;
+                top: 0;
+                right: 0;
+                z-index: 1;
+            }
+
+            highlight-wrapper {
+                @apply(--flex-column);
+                -ms-flex-align: start;
+                    align-items: flex-start;
+            }
+
+            :host-context([small]) highlight-wrapper {
+                -ms-flex-align: stretch;
+                    align-items: stretch;
+            }
+
+            :host-context([x-large]) highlight-wrapper {
+                -ms-flex-align: stretch;
+                    align-items: stretch;
+                -ms-flex-positive: 1;
+                    flex-grow: 1;
+            }
+
+            highlight-content-wrapper {
+                @apply(--flex-column);
+            }
+
+            bottom-wrapper {
+                @apply(--flex-row);
+                -ms-flex-negative: 0;
+                    flex-shrink: 0;
+                -ms-flex-positive: 1;
+                    flex-grow: 1;
+            }
+
+            :host-context([small]) bottom-wrapper {
+                @apply(--flex-column);
+            }
+
+            :host-context([x-large]) bottom-wrapper {
+                @apply(--flex-column);
+                -ms-flex-positive: 1;
+                    flex-grow: 1;
+            }
+
+            area-wrapper-top {
+                @apply(--flex-column);
+                -ms-flex-pack: center;
+                    justify-content: center;
+                -ms-flex-align: center;
+                    align-items: center;
+                -ms-flex-preferred-size: 50%;
+                    flex-basis: 50%;
+                -ms-flex-negative: 0;
+                    flex-shrink: 0;
+                -ms-flex-positive: 1;
+                    flex-grow: 1;
+                padding: 3rem 2.5rem;
+                /* IE 11 fix remove when not needed. */
+                max-width: 50%;
+            }
+
+            :host-context([small]) area-wrapper-top {
+                -ms-flex-preferred-size: auto;
+                    flex-basis: auto;
+                /* IE 11 fix remove when not needed. */
+                max-width: none;
+
+            }
+
+            :host-context([x-large]) area-wrapper-top {
+                -ms-flex-preferred-size: auto;
+                    flex-basis: auto;
+                /* IE 11 fix remove when not needed. */
+                max-width: none;
+            }
+
+            area-wrapper-bottom {
+                @apply(--flex-column);
+                -ms-flex-pack: center;
+                    justify-content: center;
+                -ms-flex-align: center;
+                    align-items: center;
+                -ms-flex-preferred-size: 50%;
+                    flex-basis: 50%;
+                -ms-flex-negative: 0;
+                    flex-shrink: 0;
+                @apply(--lg-padding-all);
+                background-color: white;
+                background-color: #CDE5BB;
+                /* IE 11 fix remove when not needed. */
+                max-width: 50%;
+            }
+
+            :host-context([small]) area-wrapper-bottom {
+                -ms-flex-preferred-size: auto;
+                    flex-basis: auto;
+                /* IE 11 fix remove when not needed. */
+                max-width: none;
+            }
+
+
+            :host-context([x-large]) area-wrapper-bottom {
+                -ms-flex-preferred-size: auto;
+                    flex-basis: auto;
+                /* IE 11 fix remove when not needed. */
+                max-width: none;
+            }
+
+            .action-content {
+                background-color: white;
+                background-color: #CDE5BB;
+            }
+
+            :host ::content highlight-content {
+                background-color: var(--semi-dark-blue-color);
+                padding: 0.5rem 1rem;
+                border-bottom-right-radius: 1.2rem;
+            }
+
+            :host-context([small]) ::content highlight-content {
+                border-bottom-right-radius: 0;
+            }
+
+            :host-context([x-large]) ::content highlight-content {
+                border-bottom-right-radius: 0;
+            }
+
+            :host ::content highlight-content[hidden] {
+                display: none;
+            }
+
+            :host ::content area-content {
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-direction: column;
+                    flex-direction: column;
+                -ms-flex-align: center;
+                    align-items: center;
+                -ms-flex-positive: 1;
+                    flex-grow: 1;
+            }
+
+            :host ::content action-content {
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-direction: column;
+                    flex-direction: column;
+                -ms-flex-pack: center;
+                    justify-content: center;
+                -ms-flex-align: center;
+                    align-items: center;
+                -ms-flex-positive: 1;
+                    flex-grow: 1;
+            }
+
+        </style>
+        <highlight-container>
+            <highlight-wrapper>
+                 <highlight-content-wrapper><content select="highlight-content"></content></highlight-content-wrapper>
+            </highlight-wrapper>
+        </highlight-container>
+        <bottom-wrapper>
+            <area-wrapper-top>
+                <content select="area-content"></content>
+            </area-wrapper-top>
+            <area-wrapper-bottom class="action-content">
+                <content select="action-content"></content>
+            </area-wrapper-bottom>
+        </bottom-wrapper>
+    </template>
+
+    <script>"use strict";
+
+Polymer({
+        is: "card-item-element"
+});</script>
+
+</dom-module>

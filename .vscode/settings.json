@@ -1,0 +1,69 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    // Controls the font size.
+    "editor.fontSize": 13,
+
+    "editor.cursorStyle": "line",
+    "editor.rulers": [],
+    "editor.wrappingColumn": -1,
+    "editor.renderWhitespace": true,
+    "editor.renderIndentGuides": true,
+    "editor.folding": false,
+    "diffEditor.renderSideBySide": true,
+    "workbench.editor.enablePreview": true,
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "explorer.openEditors.visible": 0,
+    "telemetry.enableTelemetry": false,
+    "html.format.wrapLineLength": 0,
+    "telemetry.enableCrashReporter": false,
+
+    // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the file.exclude setting.
+    "search.exclude": {
+        "**/app/assets": true,
+        "**/gulp": false,
+        "**/www": true,
+        "**/resources": false,
+        "**/*.md": false,
+        "**/bin": false,
+        "**/bower.json": false,
+        "**/.git": true,
+        "**/.gitignore": false,
+        "**/.eslintrc": false,
+        "**/.gitattributes": false,
+        "**/.editorconfig": false,
+        "**/.vscode": false,
+        "**/.bowerrc": false,
+        "**/.babelrc": false,
+        "**/.gitkeep": false,
+        "**/.eslintignore": false
+    },
+    "attrsSorter.order": [
+        "selected",
+        "id",
+        "class"
+    ],
+    // Configure glob patterns for excluding files and folders.
+    "files.exclude": {
+        "**/bower_components": true,
+        "**/node_modules": true,
+        "**/bin": false,
+        "**/.git": false,
+        "**/.eslintrc": false,
+        "**/.editorconfig": false,
+        "**/.vscode": false,
+        "**/.bowerrc": false,
+        "**/.babelrc": false,
+        "**/.gitattributes": false,
+        "**/.gitignore": false,
+        "**/.gitkeep": false,
+        "**/.DS_Store": true
+    },
+    // Enables or disables all validations
+    "css.validate": false,
+    // Control whether stylelint is enabled for CSS/SCSS files or not.
+    "stylelint.enable": true,
+    // Controls VSCode's JavaScript validation. If set to false both syntax and semantic validation is disabled
+    "javascript.validate.enable": false,
+    // Control whether eslint is enabled for JavaScript files or not.
+    "eslint.enable": true
+}

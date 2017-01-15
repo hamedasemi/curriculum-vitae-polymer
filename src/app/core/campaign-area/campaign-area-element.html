@@ -1,0 +1,73 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<link rel="import" href="/app/shared/shared-layout/shared-layout.html">
+<link rel="import" href="/app/shared/shared-content/shared-content.html">
+
+<dom-module id="campaign-area-element">
+    <template>
+        <style include="shared-layout"></style>
+        <style include="shared-content"></style>
+        <style>
+            :host {
+                @apply(--flex-row);
+                align-items: center;
+            }
+
+            text-container {
+                @apply(--flex-column);
+                flex-grow: 1;
+                padding-left: 2rem;
+                border-left: .1rem solid var(--light-green-color);
+                flex-basis: 100%;
+            }
+
+            title-container {
+                flex-grow: 1;
+                flex-shrink: 0;
+            }
+
+            subtitle-container {
+                flex-grow: 1;
+            }
+
+            image-container {
+                flex-shrink: 0;
+                width: 8.6rem;
+                height: 8.6rem;
+                margin-right: 2rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            image-container img {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+
+        <image-container>
+            <img src$="[[imageSrc]]" alt="">
+        </image-container>
+        <text-container>
+            <title-container>
+                <text-element margin-none h2>[[title]]</text-element>
+            </title-container>
+            <subtitle-container>
+                <text-element margin-none>[[subtitle]]</text-element>
+            </subtitle-container>
+        </text-container>
+
+   </template>
+
+    <script>
+        Polymer({
+            is: "campaign-area-element",
+            properties: {
+                imageSrc: String,
+                title: String,
+                subtitle: String
+            }
+        });
+    </script>
+</dom-module>

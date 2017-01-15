@@ -1,0 +1,33 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<link rel="import" href="/app/shared/shared-layout/shared-layout.html">
+<link rel="import" href="/app/shared/shared-content/shared-content.html">
+
+<dom-module id="content-element">
+    <template>
+        <style include="shared-layout"></style>
+        <style include="shared-content"></style>
+        <style>
+            :host {
+                @apply(--flex-column);
+                @apply(--md-padding-sides);
+                justify-content: center;
+                flex-grow: 1;
+            }
+
+            :host([hidden]) {
+                display: none;
+            }
+        </style>
+
+        <content></content>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: "content-element"
+        });
+    </script>
+
+</dom-module>

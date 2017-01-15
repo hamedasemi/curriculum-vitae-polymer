@@ -1,0 +1,125 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<dom-module id="x-validator">
+    <script>"use strict";
+
+Polymer({
+
+    is: "x-validator",
+
+    isValidPostalCode: function isValidPostalCode(postalCode) {
+        var pattern = new RegExp("^[1-9][0-9]{4}$");
+        return pattern.test(postalCode);
+    },
+
+    isValidPostalCodePattern: function isValidPostalCodePattern(postalCode) {
+        var pattern = new RegExp("^[1-9][0-9]{0,5}$");
+        return postalCode.length === 0 || pattern.test(postalCode);
+    },
+
+    isValidPersonalNumber: function isValidPersonalNumber(personalNumber) {
+        var pattern = new RegExp("^(?!(19|20))[0-9]{10}$|^[0-9]{6}-[0-9]{4}$|^(19|20)[0-9]{10}$|^(19|20)[0-9]{6}-[0-9]{4}$");
+        return pattern.test(personalNumber);
+    },
+
+    isValidPersonalNumberPattern: function isValidPersonalNumberPattern(personalNumber) {
+        var pattern = new RegExp("^[0-9]{0,12}$|^[0-9]{0,6}-$|^[0-9]{0,6}-[0-9]{0,4}$|^[0-9]{0,8}-$|^[0-9]{0,8}-[0-9]{0,4}$");
+        return pattern.test(personalNumber);
+    },
+
+    isValidPersonalNumberChecksum: function isValidPersonalNumberChecksum(personalNumber) {
+        var trimmedPersonalNumber = personalNumber.replace(/\s+/g, "").replace(/-+/g, "");
+        if (trimmedPersonalNumber.length === 12) {
+            trimmedPersonalNumber = trimmedPersonalNumber.substring(2);
+        }
+        var numbers = trimmedPersonalNumber.split("");
+        var checkDigit = parseInt(numbers.pop());
+        var total = numbers.reduce(function (prev, current, index) {
+            var multiple = index % 2 === 0 ? 2 : 1;
+            var value = parseInt(current * multiple);
+            var sum = value % 10 + Math.floor(value / 10);
+            return parseInt(prev) + sum;
+        }, 0);
+        var lastDigit = total % 10;
+        if (lastDigit === 0) {
+            return checkDigit === lastDigit;
+        } else {
+            return checkDigit === 10 - lastDigit;
+        }
+    },
+
+    isValidEmailAddress: function isValidEmailAddress(emailaddress) {
+        var pattern = new RegExp("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        return pattern.test(emailaddress);
+    },
+
+    isValidSwedishTelephoneNumber: function isValidSwedishTelephoneNumber(telephoneNumber) {
+        var trimmedTelephoneNumber = telephoneNumber.replace(/\s+/g, "");
+        var pattern = new RegExp("^08-[0-9]{6,8}$|^0[1-9][0-9]-[0-9]{5,7}$|^0[1-9][0-9]{2}-[0-9]{5,6}$|^0[1-9][0-9]{6,8}$|^\\+[1-9][0-9]{6,}$");
+        return pattern.test(trimmedTelephoneNumber);
+    },
+
+    isValidSwedishTelephoneNumberPattern: function isValidSwedishTelephoneNumberPattern(telephoneNumber) {
+        var trimmedTelephoneNumber = telephoneNumber.replace(/\s+/g, "");
+        var pattern = new RegExp("^(0|\\+)[0-9]{0,1}[0-9\\-]{0,1}[0-9\\-]{0,1}[0-9\\-]{0,1}[0-9]{0,}$");
+        return pattern.test(trimmedTelephoneNumber);
+    },
+
+    isValidGridCode: function isValidGridCode(gridCode) {
+        var pattern = new RegExp("^[a-zA-Z]{3}$");
+        return pattern.test(gridCode);
+    },
+
+    isValidGridCodePattern: function isValidGridCodePattern(gridCode) {
+        var pattern = new RegExp("^[a-zA-Z]{0,3}$");
+        return pattern.test(gridCode);
+    },
+
+    isValidMeterPoint: function isValidMeterPoint(meterPoint) {
+        var pattern = new RegExp("^735999[0-9]{12}$");
+        return pattern.test(meterPoint);
+    },
+
+    isValidMeterPointPattern: function isValidMeterPointPattern(meterPoint) {
+        var pattern = new RegExp("^$|^7$|^73$|^735$|^7359$|^73599$|^735999$|^735999[0-9]{0,12}$");
+        return pattern.test(meterPoint);
+    },
+
+    isValidMeterPointChecksum: function isValidMeterPointChecksum(meterPoint) {
+        meterPoint = meterPoint.trim();
+        var numbers = meterPoint.split("");
+        var checkDigit = parseInt(numbers.pop());
+        var total = numbers.reduce(function (prev, current, index) {
+            var multiple = index % 2 === 0 ? 3 : 1;
+            return parseInt(prev) + parseInt(current * multiple);
+        }, 0);
+        var lastDigit = total % 10;
+        if (lastDigit === 0) {
+            return checkDigit === lastDigit;
+        } else {
+            return checkDigit === 10 - lastDigit;
+        }
+    },
+
+    isValidApartmentNumber: function isValidApartmentNumber(apartmentNumber) {
+        var pattern = new RegExp("^[0-9]{4}$");
+        return pattern.test(apartmentNumber);
+    },
+
+    isValidApartmentNumberPattern: function isValidApartmentNumberPattern(apartmentNumber) {
+        var pattern = new RegExp("^[0-9]{0,4}$");
+        return pattern.test(apartmentNumber);
+    },
+
+    isValidOrganisationNumber: function isValidOrganisationNumber(organisationNumber) {
+        var pattern = new RegExp("^[0-9]{6,8}-?[0-9]{4}$");
+        return pattern.test(organisationNumber);
+    },
+
+    isValidOrganisationNumberPattern: function isValidOrganisationNumberPattern(organisationNumber) {
+        var pattern = new RegExp("^[0-9]{0,6}-?[0-9]{0,4}$|^[0-9]{0,8}-?[0-9]{0,4}$");
+        return pattern.test(organisationNumber);
+    }
+
+});</script>
+</dom-module>

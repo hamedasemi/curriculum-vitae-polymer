@@ -1,0 +1,38 @@
+---
+cwd: "./.."
+elements:
+  scripts:
+  - "./app/+(components|elements|shared)/**/*.js"
+  markups:
+  - "./app/+(components|elements|shared)/**/*.html"
+  - "./app/*.html"
+data: "./www/assets/data"
+api:
+  url: api.phraseapp.com/api/v2
+  projectId: 2bb0a495c85a79d155bf38af80448e60
+  fileFormat: nested_json
+  accessToken: 9220d73a14d176f6a687f45913a0cf64583a9b5c25b0a9436ad3c036396ffd11
+css:
+- "./app/+(components|elements)/**/*.css"
+app:
+  test:
+    unit:
+    - "./app/**/*.unit.test.js"
+    web:
+    - "./app/**/*.web.test.js"
+    e2e:
+    - "./app/+(components|elements|shared)/**/*.e2e.test.js"
+    - "./app/index.e2e.test.js"
+server:
+  test:
+    unit:
+    - "./server/**/*.test.js"
+assets: app/assets/**/*.*
+libs: app/assets/libs/**/*.{html, js}
+fonts: app/assets/fonts/**/*.{ttf, otf}
+icons: app/assets/icons/**/*.{svg}
+images: app/assets/images/**/*.{jpeg, jpg, png}
+vectors: app/assets/vectors/**/*.{svg}
+root: app/assets/root/**/*.*
+src: "./app"
+dest: "./www"

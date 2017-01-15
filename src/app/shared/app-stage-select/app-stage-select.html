@@ -1,0 +1,99 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<dom-module id="app-stage-select">
+
+    <template>
+        <style>
+
+            :host ::content > :not([active]) {
+                display: none !important;
+            }
+
+            :host ::content > [active="fade-in"] {
+                animation: fadeIn 1.2s forwards ease-out;
+            }
+
+            @keyframes fadeIn {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+
+            :host ::content > [active="slide-up"] {
+                animation: slideUp 1.2s forwards ease-out;
+            }
+
+            @keyframes slideUp {
+                0% {
+                    opacity: 0;
+                    transform: translate3d(0, 10px, 0);
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
+        </style>
+        <content></content>
+    </template>
+
+    <script>
+        Polymer({
+
+            is:`app-stage-select`,
+
+            properties: {
+                stage: {
+                    type: String,
+                    observer: `_stageChanged`
+                },
+                autoScroll: {
+                    type: Boolean,
+                    value: false
+                },
+                animation: {
+                    type: String,
+                    value: ``
+                }
+            },
+
+            _stageChanged: function(newValue, oldValue) {
+
+                this._autoScrollOnPageChange();
+
+                var lightDOMContainer = Polymer.dom(this);
+
+                var lightDOMChildren = lightDOMContainer.children;
+
+                let children = lightDOMChildren.filter( (child) => {
+                    let childAttributeSelectOnStage = child.getAttribute('select-on-stage');
+                    let attributeStages = childAttributeSelectOnStage.split(" ");
+                    if (childAttributeSelectOnStage && attributeStages.indexOf(newValue) !== -1) {
+                        child.setAttribute(`active`, this.animation);
+                        return true;
+                    } else {
+                        child.removeAttribute(`active`);
+                    }
+                });
+
+                if (children.length === 0) {
+                    lightDOMChildren.map( (child) => {
+                        let childAttributeSelectOnStage = child.getAttribute('select-on-stage');
+                        let attributeStages = childAttributeSelectOnStage.split(" ");
+                        if (childAttributeSelectOnStage && attributeStages.indexOf(`not-found`) !== -1) {
+                            child.setAttribute(`active`, this.animation);
+                        }
+                    });
+                }
+
+            },
+
+            _autoScrollOnPageChange: function() {
+                if (this.autoScroll) {
+                    window.scrollTo(0, 0);
+                }
+            }
+        });
+
+    </script>
+
+</dom-module>

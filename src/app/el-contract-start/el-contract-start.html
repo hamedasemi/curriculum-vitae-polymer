@@ -1,0 +1,102 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<link rel="import" href="/app/shared/resource/x-resource.html">
+<link rel="import" href="/app/shared/shared-layout/shared-layout.html">
+<link rel="import" href="/app/shared/shared-content/shared-content.html">
+
+<link rel="import" href="/app/core/content/content-element.html">
+<link rel="import" href="/app/core/text/text-element.html">
+<link rel="import" href="/app/core/action-button/action-button-element.html">
+
+<dom-module id="el-contract-start">
+
+    <style include="shared-layout"></style>
+    <style include="shared-content"></style>
+
+    <template>
+        <style>
+            :host {
+                @apply(--flex-column);
+                flex-grow: 1;
+                justify-content: center;
+            }
+
+            action-button-element {
+                align-self: flex-start;
+            }
+
+            @keyframes loading {
+                from {left: -200px; width: 30%;}
+                50% {width: 100%;}
+                70% {width: 50%;}
+                80% { left: 70%;}
+                95% {left: 120%;}
+                to {left: 100%;}
+            }
+
+            loader[linear] {
+                height: 4px;
+                margin: 0 2em 0 2em;
+                box-sizing: border-box;
+                position: relative;
+                overflow: hidden;
+                background-color: var(--light-green-color);
+            }
+
+            loader[linear]:before{
+                display: block;
+                position: absolute;
+                content: "";
+                left: -200px;
+                width: 200px;
+                height: 4px;
+                background-color: var(--primary-color);
+                animation: loading 1s linear infinite;
+            }
+
+            text-element[h1],
+            text-element[preamble],
+            action-button-element {
+                animation: fadeIn .6s forwards ease-in;
+                backface-visibility: hidden;
+            }
+
+            @keyframes fadeIn {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+
+        </style>
+
+        <loader linear hidden="[[campaign]]">Loading</loader>
+
+        <content-element hidden="[[!campaign]]">
+            <text-element h1>[[campaign.attributes.startHeading]]</text-element>
+            <text-element preamble html="[[campaign.attributes.startBody]]"></text-element>
+            <action-button-element on-click="goForward">[[localize('general.button.continue')]]</action-button-element>
+        </content-element>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: `el-contract-start`,
+
+            behaviors: [
+                Polymer.Behaviors.Resource
+            ],
+
+            properties: {
+                campaign: {
+                    type: Object
+                }
+            },
+
+            goForward: function() {
+                this.fire(`on-analytics-event`, { category: `start`, action: `click`, label: `Continue` });
+                this.fire(`on-start`, {});
+            }
+        });
+    </script>
+
+</dom-module>

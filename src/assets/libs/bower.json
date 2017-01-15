@@ -1,0 +1,20 @@
+{
+  "name": "libs",
+  "authors": [
+    "Hamed Asemi <h-@live.se>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "app-localize-behavior": "PolymerElements/app-localize-behavior#^0.9.1",
+    "es6-promise": "^3.2.2",
+    "app-route": "PolymerElements/app-route#^0.9.2",
+    "intl": "^1.2.4",
+    "iron-pages": "PolymerElements/iron-pages#^1.0.8",
+    "polymer": "^1.5.0",
+    "re-captcha": "cbalit/re-captcha#^1.1.2",
+    "svgxuse": "^1.1.17"
+  }
+}

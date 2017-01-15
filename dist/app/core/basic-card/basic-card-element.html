@@ -1,0 +1,62 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<link rel="import" href="/app/shared/shared-layout/shared-layout.html">
+<link rel="import" href="/app/shared/shared-content/shared-content.html">
+
+<dom-module id="basic-card-element">
+    <template>
+        <style include="shared-layout"></style>
+        <style include="shared-content"></style>
+        <style>
+            :host  {
+                @apply(--flex-column);
+                background-color: white;
+                background-color: #E9F3DF;
+                @apply(--md-margin-bottom);
+                overflow: hidden;
+                animation: fadeIn .3s forwards ease-in 0s;
+                -webkit-backface-visibility: hidden;
+                        backface-visibility: hidden;
+            }
+
+            :host ::content highlight-content {
+                background-color: white;
+                background-color: #CDE5BB;
+                @apply(--xxs-padding-all);
+            }
+
+            :host ::content area-content {
+                @apply(--flex-column);
+                @apply(--md-padding-top);
+                @apply(--md-padding-sides);
+                @apply(--md-margin-bottom);
+            }
+
+            :host ::content action-content {
+                @apply(--flex-column);
+                -ms-flex-align: center;
+                    align-items: center;
+                background-color: white;
+                background-color: #CDE5BB;
+                @apply(--md-padding-top);
+            }
+
+            @keyframes fadeIn {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+
+        </style>
+        <content select="highlight-content"></content>
+        <content select="area-content"></content>
+        <content select="action-content"></content>
+        
+    </template>
+
+    <script>"use strict";
+
+Polymer({
+    is: "basic-card-element"
+});</script>
+
+</dom-module>

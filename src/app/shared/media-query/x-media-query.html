@@ -1,0 +1,72 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<script>
+
+    Polymer({
+
+        is: `x-media-query`,
+
+        properties: {
+            baseline: {
+                type: Number
+            },
+            multiplier: {
+                type: Number
+            },
+            name: {
+                type: String
+            },
+            _boundMQHandler: {
+                value: function() {
+                    return this.queryHandler.bind(this);
+                }
+            },
+            _mq: {
+                value: null
+            }
+        },
+
+        attached: function() {
+            this.style.display = `none`;
+            this.queryChanged();
+        },
+
+        detached: function() {
+            this._remove();
+        },
+
+        _add: function() {
+            if (this._mq) {
+                this._mq.addListener(this._boundMQHandler);
+            }
+        },
+
+        _remove: function() {
+            if (this._mq) {
+                this._mq.removeListener(this._boundMQHandler);
+            }
+            this._mq = null;
+        },
+
+        queryChanged: function() {
+            this._remove();
+            var width = this.baseline * this.multiplier;
+            if (isNaN(width)) {
+                return;
+            }
+            this._mq = window.matchMedia(`(min-width: ${width}px)`);
+            this._add();
+            this.queryHandler(this._mq);
+        },
+
+        queryHandler: function(mq) {
+            if (mq.matches) {
+                document.documentElement.setAttribute(this.name, ``);
+            } else {
+                document.documentElement.removeAttribute(this.name);
+            }
+        }
+
+    });
+
+</script>

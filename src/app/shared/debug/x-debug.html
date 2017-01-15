@@ -1,0 +1,44 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<script>
+
+    Polymer.Behaviors = Polymer.Behaviors || {};
+    Polymer.Behaviors.DebugBehavior = {
+
+        debug: function() {
+            if (this._isLoggerEnabled()) {
+                let args = [].slice.call(arguments);
+                args.unshift(`%c[${this.is}]`, `color: #5AC4F4`);
+                console.log.apply(console, args);
+                // console.trace.apply(console, args);
+            }
+        },
+
+        warn: function() {
+            if (this._isLoggerEnabled()) {
+                let args = [].slice.call(arguments);
+                args.unshift(`%c[${this.is}]`, `color: #FEB64D`);
+                console.log.apply(console, args);
+            }
+        },
+
+        error: function() {
+            if (this._isLoggerEnabled()) {
+                let args = [].slice.call(arguments);
+                args.unshift(`%c[${this.is}]`, `color: #E57373`);
+                console.log.apply(console, args);
+            }
+        },
+
+        _isLoggerEnabled: function() {
+            let logger = window.location.search.split(`?debug=`);
+            if (logger.length === 2) {
+                return logger[1].split(`+`).indexOf(this.is) !== -1;
+            } else {
+                return window.location.port !== ``;
+            }
+        }
+
+    };
+
+</script>

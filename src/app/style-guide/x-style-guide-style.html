@@ -1,0 +1,49 @@
+<dom-module id="x-style-guide-style">
+    <template>
+        <style include="shared-layout"></style>
+        <style include="shared-content"></style>
+        <style>
+            :host progress-bar {
+                position: relative;
+                width: 100%;
+            }
+            content-element > text-element {
+				margin-top: 3rem;
+			}
+
+			input-element[state="error"] + text-element {
+				margin-top: 0;
+			}
+
+			div#notification-buttons,
+            div#icons,
+            div#buttons {
+				@apply(--flex-row);
+                flex-wrap: wrap;
+			}
+
+			div#notification-buttons > action-button-element,
+            div#icons > x-icon,
+            div#buttons > action-button-element {
+				margin-right: 1rem;
+			}
+
+			separator {
+				display: block;
+				background-color: var(--separator-green-color);
+				width: 100%;
+				height: 1px;
+				margin-top: var(--sm-shared-content);
+				margin-bottom: var(--sm-shared-content);
+			}
+
+			radio-button {
+				margin-bottom: 2rem;
+			}
+
+			action-button-element {
+				align-self: flex-start;
+			}
+        </style>
+    </template>
+</dom-module>

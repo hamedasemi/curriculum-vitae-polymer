@@ -1,0 +1,250 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<script>"use strict";
+
+Polymer.Behaviors = Polymer.Behaviors || {};
+Polymer.Behaviors.Resource = [Polymer.AppLocalizeBehavior, {
+
+    properties: {
+        language: {
+            value: "sv"
+        },
+        formats: {
+            type: Object,
+            value: function value() {
+                return {
+                    number: {
+                        ÖRE: {
+                            style: "decimal",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        },
+                        SEK: {
+                            style: "decimal",
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0
+                        }
+                    }
+                };
+            }
+        },
+        resources: {
+            value: function value() {
+                return {
+                    sv: {
+                        "formats.number": "{value, number}",
+                        "formats.number.kwhPerYearUnit": "{value, number} kWh/\xE5r",
+                        "formats.currency.swedish": "{price, number, SEK} kr",
+                        "formats.currency.swedishDecimal": "{price, number, \xD6RE} {unit}",
+                        "formats.currency.swedishBasedOnUnit": "{unit, select, \xF6re/kWh {{price, number, \xD6RE} {unit}} kr/m\xE5n {{price, number, SEK} {unit}} other {?????}}",
+                        //-----------------------
+                        // UNITS
+                        //-----------------------
+                        "unit.currency.swedishOrePerKwh": "\xF6re/kWh",
+                        //-----------------------
+                        // ORIGIN
+                        //-----------------------
+                        "origin-selection.footer.text": "Fortum Markets samlade elf\xF6rs\xE4ljning i Sverige hade under 2015 f\xF6ljande ursprung: 22 % k\xE4rnkraft och 78 % f\xF6rnybara energik\xE4llor (sol-, vind- och vattenkraft).",
+                        "origin-selection.preferred.title": "Rekommenderas",
+                        "origin-selection.discount.title": "Just nu",
+                        "origin-selection.card.title": "{type, select, vind {Vindkraft} solel {Solkraft} vatten {Vattenkraft} other {?????}}",
+                        //-----------------------
+                        // USAGE
+                        //-----------------------
+                        "usage-category-selection.card.title": "{type, select, usage.type.apartment {L\xE4genhet} usage.type.small-house {Radhus} usage.type.large-house {Villa} other {?????}}",
+                        //-----------------------
+                        // AREA
+                        //-----------------------
+                        "area-selection.content.title": "V\xE4lj elomr\xE5de",
+                        "area-selection.content.paragraph": "Vi beh\xF6ver veta vilket elomr\xE5de du bor i f\xF6r att visa dig ett korrekt elpris.",
+                        "area-selection.area.action": "Elomr\xE5de",
+                        "area-selection.action": "Ber\xE4kna elpris",
+                        //-----------------------
+                        // CONTRACT
+                        //-----------------------
+                        "contract-selection.contract.flip.link": "{type, select, VARIABLE {Visa fast elpris} FIXED {Visa R\xF6rligt Rent elpris} other {?????}}",
+                        "contract-selection.contract.variable.title": "R\xF6rligt Rent elpris",
+                        "contract-selection.contract.fixed.title": "Fast elpris",
+                        "contract-selection.contract.subtitle": "Ber\xE4knad m\xE5nadskostnad",
+                        "contract-selection.contract.price.currency": "kr",
+                        "contract-selection.contract.edit-txt": "\xC4ndra",
+                        "contract-selection.contract.based-on-txt": "Baserat p\xE5",
+                        "contract-selection.contract.based-on-unit": "kWh/\xE5r",
+                        "contract-selection.contract.price-details": "Detaljerat pris",
+                        "contract-selection.contract.action": "V\xE4lj elavtal",
+                        "contract-selection.price-details.your-el-price-txt": "Ditt elpris",
+                        "contract-selection.price-details.your-el-price-details": "Ditt elpris utg\xF6rs av totalt energipris, fasta avgifter och eventuella rabatter som ber\xE4knats p\xE5 den \xE5rsf\xF6rbrukning som du angivit.",
+                        "contract-selection.price-details.kwh-price-txt": "Kilowattimmepris",
+                        "contract-selection.price-details.el-price-txt": "Elpris",
+                        "contract-selection.price-details.add-on-txt": "P\xE5slag",
+                        "contract-selection.price-details.vat-txt": "Moms",
+                        "contract-selection.price-details.tax-txt": "Skatt",
+                        "contract-selection.price-details.monthly-fee-txt": "M\xE5nadsavgift",
+                        "contract-selection.price-details.monthly-fee-details": "{type, select, true {En fast m\xE5nadsavgift exklusive moms.} false {En fast m\xE5nadsavgift inklusive moms.} other {?????}}",
+                        "contract-selection.price-details.show-txt": "Visa",
+                        "contract-selection.price-details.compare-price-txt": "J\xE4mf\xF6rpris",
+                        "contract-selection.price-details.compare-price-description": "J\xE4mf\xF6rpris baseras p\xE5 angivet elomr\xE5de, annan energiskatt kan till\xE4mpas f\xF6r vissa omr\xE5den. N\xE4tkostnad ing\xE5r inte.",
+                        //-----------------------
+                        // PERSONAL NUMBER
+                        //-----------------------
+                        "personal-number-input.personal-number-placeholder": "\xC5\xC5MMDDXXXX",
+                        "personal-number-input.postcode-placeholder": "T ex. 11541",
+                        "personal-number-input.contact-support-paragraph": "Vi kan tyv\xE4rr inte hitta ditt personnummer. V\xE4nligen ring oss ist\xE4llet.",
+                        //-----------------------
+                        // CUSTOMER-INFO
+                        //-----------------------
+                        "customer-info.title": "Dina kunduppgifter",
+                        "customer-info.we-deliver-power-to-txt": "Vi levererar elen till",
+                        "customer-info.meter-point-address.title": "Elen levereras till",
+                        "customer-info.invoice-address.title": "Fakturaadress",
+                        "customer-info.postcode-description": "Om du \xE4ndrar ditt postnummer kommer vi att uppdatera ditt elpris.",
+                        "customer-info.area-label": "Elomr\xE5de",
+                        "customer-info.edit-txt": "\xC4ndra",
+                        //-----------------------
+                        // CUSTOMER-SERVICE
+                        //-----------------------
+                        "customer-service-component.header": "Ring kundtj\xE4nst",
+                        //-----------------------
+                        // START DATE INPUT
+                        //-----------------------
+                        "start-date-input.earliest-date": "Tidigast m\xF6jliga flyttdatum {start, date, medium}",
+                        "start-date-input.title": "Anl\xE4ggningsinformation",
+                        "start-date-input.attention.title": "{type, select, true {Du m\xE5ste sj\xE4lv teckna ett eln\xE4tsavtal f\xF6r din adress. [BUSINESS]} false {Du m\xE5ste sj\xE4lv teckna ett eln\xE4tsavtal f\xF6r din adress.} other {?????}}",
+                        "start-date-input.attention.subtitle": "{type, select, true {Har du n\xE5gra funderingar? Ring oss p\xE5 020-46 00 00 dygnet runt alla dagar. [BUSINESS]} false {Har du n\xE5gra funderingar? Ring oss p\xE5 020-46 00 00 dygnet runt alla dagar.} other {?????}}",
+                        "start-date-input.attention.moving.title": "Du m\xE5ste sj\xE4lv teckna eln\xE4tsavtal till din nya adress [MOVING]",
+                        "start-date-input.attention.moving.subtitle": "Subtitle [MOVING]",
+                        "start-date-input.proxy-process-enabled.legal": "Jag ger Fortum Markets AB fullmakt, eller den Fortum Markets AB f\xF6rordnar i sitt st\xE4lle, att i mitt namn inh\xE4mta anl\xE4ggningsuppgifter f\xF6r min adress f\xF6r genomf\xF6rande av detta byte av elhandelsf\xF6retag.",
+                        "start-date-input.proxy-process-enabled-moving.legal": "Jag ger Fortum Markets AB fullmakt, eller den Fortum Markets AB f\xF6rordnar i sitt st\xE4lle, att fr\xE5n mitt eln\xE4tsf\xF6retag och mitt elhandelsf\xF6retag inh\xE4mta s\xE5dan information som \xE4r kopplad till genomf\xF6rande av byte av elhandelsf\xF6retag.[MOVING]",
+                        "start-date-input.message.meter-point-grid-code-explanation": "Anl\xE4ggnings-ID best\xE5r av 18 siffror och finns p\xE5 elm\xE4taren och fakturan. Omr\xE5des-ID best\xE5r av tre bokst\xE4ver och finns p\xE5 fakturan.",
+                        //-----------------------
+                        // SUMMARY
+                        //-----------------------
+                        "new-contract-summary.your-information.title": "Dina uppgifter",
+                        "new-contract-summary.personal-number.title": "Personnummer",
+                        "new-contract-summary.organisations-number.title": "Organisationsnummer",
+                        "new-contract-summary.firstname.title": "F\xF6rnamn",
+                        "new-contract-summary.lastname.title": "Efternamn",
+                        "new-contract-summary.e-mail.title": "E-post",
+                        "new-contract-summary.phonenumber-number.title": "Telefonnummer",
+                        "new-contract-summary.your-agreement.title": "Ditt elavtal",
+                        "new-contract-summary.your-agreement.description": "{type, select, true {F\xF6r villkor att s\xE4ga upp avtalet och f\xF6rl\xE4ngning av avtalstiden se v\xE5ra <a href=\"http://www.fortum.com/countries/se/privat/el/vara-elavtal/avtalsvillkor/avtalsvillkor-nost/Pages/default.aspx\" target=\"_blank\">s\xE4rskilda villkor</a> [BUSINESS]} false {F\xF6r villkor att s\xE4ga upp avtalet och f\xF6rl\xE4ngning av avtalstiden se v\xE5ra <a href=\"http://www.fortum.com/countries/se/privat/el/vara-elavtal/avtalsvillkor/avtalsvillkor-nost/Pages/default.aspx\" target=\"_blank\">s\xE4rskilda villkor</a>} other {?????}}",
+                        "new-contract-summary.monthly-cost.description": "Eln\xE4tskostnad tillkommer. ",
+                        "new-contract-summary.delivery-period.title": "Leveransperiod",
+                        "new-contract-summary.delivery-period.variable-txt": "G\xE4ller tillsvidare",
+                        "new-contract-summary.proxy-process.title": "Anl\xE4ggningsuppgifter",
+                        "new-contract-summary.proxy-process.instruction": "H\xE4mtas via fullmakt",
+                        "new-contract-summary.billing-address.careof": "c/o {name}",
+                        "new-contract-summary.invoice-interval": "Fakturaintervall",
+                        "new-contract-summary.invoice-interval.quarterly": "Kvartalsvis",
+                        "new-contract-summary.invoice-interval.every-other-month": "Varannan m\xE5nad",
+                        "new-contract-summary.invoice-interval.monthly": "M\xE5nadsvis",
+                        "new-contract-summary.action": "Teckna elavtal",
+                        "new-contract-summary.your-estimated-cost": "Din ber\xE4knade elkostnad",
+                        "new-contract-summary.proxy-process-description": "Genom att ing\xE5 avtal med Fortum Markets AB s\xE5 accepterar jag Fortums <a href=\"http://www.fortum.com/countries/se/privat/el/vara-elavtal/avtalsvillkor/avtalsvillkor-nost/Pages/default.aspx\" target=\"_blank\">allm\xE4nna avtalsvillkor</a> och Fortums <a href=\"http://www.fortum.com/countries/se/privat/el/vara-elavtal/avtalsvillkor/avtalsvillkor-nost/Pages/default.aspx\" target=\"_blank\">s\xE4rskilda avtalsvillkor</a>. <br><br> Jag ger Fortum Markets AB fullmakt, eller den Fortum Markets AB f\xF6rordnar i sitt st\xE4lle, att i mitt namn inh\xE4mta anl\xE4ggningsuppgifter f\xF6r min adress f\xF6r genomf\xF6rande av detta byte av elhandelsf\xF6retag.",
+                        "new-contract-summary.proxy-process-resettle-description": "[Proxy description when user is moving]",
+                        "new-contract-summary.agreement-txt": "Genom att ing\xE5 avtal med Fortum Markets AB s\xE5 accepterar jag Fortums <a href=\"http://www.fortum.com/countries/se/privat/el/vara-elavtal/avtalsvillkor/avtalsvillkor-nost/Pages/default.aspx\" target=\"_blank\">allm\xE4nna avtalsvillkor</a> och Fortums <a href=\"http://www.fortum.com/countries/se/privat/el/vara-elavtal/avtalsvillkor/avtalsvillkor-nost/Pages/default.aspx\" target=\"_blank\">s\xE4rskilda avtalsvillkor</a>.",
+                        "new-contract-summary.price-description": "Priset baseras p\xE5 f\xF6reg\xE5ende m\xE5nads medelspotpris. Ditt r\xF6rliga elpris varierar fr\xE5n m\xE5nad till m\xE5nad.",
+                        "new-contract-summary.footer.text": "{type, select, true {Erbjudandet g\xE4ller endast nya kunder och avser privatpersoner. Du har 14 dagars \xE5ngerr\xE4tt fr\xE5n det datum du f\xE5r din bekr\xE4ftelse p\xE5 avtalet. Konsumentr\xE4tt, klagom\xE5l och tvistl\xF6sning: <a href=\"http://fortum.se/konsument\" target=\"_blank\">fortum.se/konsument</a> eller ring Kundservice <a href=\"tel:020-460000\">020-46 00 00 [BUSINESS]} false {Erbjudandet g\xE4ller endast nya kunder och avser privatpersoner. Du har 14 dagars \xE5ngerr\xE4tt fr\xE5n det datum du f\xE5r din bekr\xE4ftelse p\xE5 avtalet. Konsumentr\xE4tt, klagom\xE5l och tvistl\xF6sning: <a href=\"http://fortum.se/konsument\" target=\"_blank\">fortum.se/konsument</a> eller ring Kundservice <a href=\"tel:020-460000\">020-46 00 00</a>.} other {?????}}",
+                        //-----------------------
+                        // THANKS
+                        //-----------------------
+                        "thanks-component.content.header": "{type, select, true {Tack f\xF6r er best\xE4llning, {name}} false {Tack f\xF6r din best\xE4llning, {name}} other {?????}}",
+                        //-----------------------
+                        // CONTACT-SUPPORT
+                        //-----------------------
+                        "contact-support-component.short-text": "\xD6ppet dygnet runt",
+                        "contact-support-component.telephone-number": "020 - 46 00 00",
+
+                        //-----------------------
+                        // GENERAL
+                        //-----------------------
+                        "general.button.go-back": "Tillbaka",
+                        "general.button.close": "St\xE4ng",
+                        "general.button.continue": "Forts\xE4tt",
+                        "general.button.choose": "V\xE4lj",
+                        "general.button.campaignToogle": "{type, select, standard {F\xF6retag} business {Privat} other {?????}}",
+
+                        //-----------------------
+                        // LABELS
+                        //-----------------------
+                        "label.street-name": "Gatuadress",
+                        "label.postal-code": "Postnummer",
+                        "label.city": "Stad",
+                        "label.previous-owner": "Vem bodde tidigare p\xE5 adressen?",
+                        "label.apartment-number": "Om du flyttar till l\xE4genhet, ange l\xE4genhetsnumret",
+                        "label.start-date": "Startdatum",
+                        "label.grid-code": "Omr\xE5des-ID",
+                        "label.meter-point": "Anl\xE4ggnings-ID",
+                        "label.enable-proxy-process": "Jag ger Fortum fullmakt att h\xE4mta mina anl\xE4ggningsuppgifter",
+                        "label.disable-proxy-process": "Jag fyller sj\xE4lv i mina anl\xE4ggningsuppgifter",
+                        "label.will-resettle": "Jag ska flytta",
+                        "label.org-number": "Organisationsnummer",
+                        "label.firstname": "F\xF6rnamn",
+                        "label.lastname": "Efternamn",
+                        "label.email": "E-post",
+                        "label.phoneNumber": "Telefonnummer",
+                        "label.legal": "Jag accepterar Fortums allm\xE4nna och s\xE4rskilda avtalsvillkor",
+
+                        //-----------------------
+                        // PLACEHOLDERS
+                        //-----------------------
+                        "placeholder.postcode": "T ex. 11541",
+                        "placeholder.previous-owner": "f\xF6rnamn efternamn",
+                        "placeholder.apartment-number": "T ex. 1102",
+                        "placeholder.pick-date": "V\xE4lj datum",
+                        "placeholder.grid-code": "T ex. STH",
+                        "placeholder.meter-point": "T ex. 735999...",
+                        "placeholder.org-number": "T ex. 556885-8384",
+                        "placeholder.firstname": "T ex. Anna",
+                        "placeholder.lastname": "T ex. Andersson",
+                        "placeholder.email": "T ex. namn.namnsson@fortum.se",
+                        "placeholder.phoneNumber": "T ex. 070-000 00 00",
+                        "placeholder.care-of": "c/o",
+
+                        //-----------------------
+                        // NOTIFICATIONS
+                        //-----------------------
+                        "notification.origin-type": "Bra val, du f\xE5r 100% {type, select, vind {vindkraft} solel {solkraft} vatten {vattenkraft} other {?????}}",
+                        "notification.usage-category": "{type, select, usage.type.apartment {En l\xE4genhet} usage.type.small-house {Ett radhus} usage.type.large-house {En villa} other {?????}} anv\xE4nder vanligtvis ca ",
+                        "notification.contract-type": "Du har valt ett elavtal med {type, select, FIXED {fast} VARIABLE {r\xF6rligt}} elpris",
+                        "notification.postalnumber-mismatch": "Vi beh\xF6ver veta postnumret till din folkbokf\xF6ringsadress",
+                        "notification.price-based-on-postcode": "Ditt elpris baseras nu p\xE5 postnummer {value}",
+                        "notification.price-updated": "Priset har nu uppdaterats",
+                        "notification.electricity-adress": "Elen levereras till {value}",
+                        "notification.email-adress": "Vi skickar din bekr\xE4ftelse till {value}",
+                        "notification.start-date": "Ditt startdatum \xE4r {date}",
+
+                        //-----------------------
+                        // ERRORS
+                        //-----------------------
+                        "error.servicelayer.postalcode.not.exist": "Vi kunde inte hitta ditt postnummer.",
+                        "error.servicelayer.customer.personnummer.invalid": "V\xE4nligen ange ett giltigt personnummer.",
+                        "error.servicelayer.customer.personnummer.too.young": "Du m\xE5ste vara 18 \xE5r eller \xE4ldre.",
+                        "error.servicelayer.address.preconditions.invalid": "Fyll i ditt postummer f\xF6r att h\xE4mta din adress automatiskt.",
+                        "error.servicelayer.address.not.found": "", // keep empty to not cause error, will show a customer info instead of text
+                        "error.servicelayer.business.organisationsnummer.invalid": "Vi kunde inte hitta ert organisationsnummer.",
+                        "error.servicelayer.business.address.not.found": "Vi kunde inte hitta ert organisationsnummer.",
+                        "error.servicelayer.business.token.invalid": "V\xE4nligen bekr\xE4fta igen att du inte \xE4r en robot.",
+
+                        "error.valid-postalcode-five-digits": "Var god och mata in ett giltigt postnummer best\xE5ende av 5 siffror.",
+                        "error.personal-number-wrong-format": "Ange personnumret i formatet \xC5\xC5MMDDXXXX.",
+                        "error.personal-number-invalid": "V\xE4nligen ange ett giltigt personnummer.",
+                        "error.required-info": "Obligatorisk uppgift.",
+                        "error.invalid-apartment-number": "Var god och mata in ett giltigt l\xE4genhetesnummer best\xE5ende av 4 siffror.",
+                        "error.add-valid-email": "L\xE4gg till en giltig e-postadress.",
+                        "error.add-valid-telephone-number": "L\xE4gg till ett giltligt telefonnummer.",
+                        "error.grid-code-requires-three-letters": "Ditt omr\xE5des-ID m\xE5ste ha tre bokst\xE4ver.",
+                        "error.meter-point-wrong-format": "Ditt anl\xE4ggnings-ID m\xE5ste ha 18 siffror och b\xF6rja med \"735999\".",
+                        "error.meter-point-invalid": "V\xE4nligen ange ett giltigt anl\xE4ggnings-ID.",
+                        "error.org-number-wrong-format": "V\xE4nligen ange ett giltigt organisationsnummer.",
+
+                        // Not done. Dependant of other changes.
+                        "business.error.complementary.header": "Oj, n\xE5got gick fel!",
+                        "business.error.complementary.number": "020 - 46 00 00",
+                        "business.error.complementary.p": "Som tur \xE4r finns vi tillg\xE4ngliga dygnet runt, vi besvarar g\xE4rna ditt \xE4rende p\xE5 numret nedan."
+                    }
+                };
+            }
+        }
+    }
+}];</script>

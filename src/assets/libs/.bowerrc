@@ -1,0 +1,10 @@
+{
+    "directory": "./",
+    "analytics": false,
+    "timeout": 60000,
+    "registry": {
+        "search": [
+            "https://bower.herokuapp.com"
+        ]
+    }
+}
