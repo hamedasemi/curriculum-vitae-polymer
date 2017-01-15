@@ -48,6 +48,7 @@
             flex-direction: column;
             flex-grow: 1;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            font-family: Courier New, Courier, monospace;
         }
 
         ::selection {
@@ -81,7 +82,7 @@
 
         spinner {
             border: .5em solid #ededed;
-            border-right: .5em solid #5ac37d;
+            border-right: .5em solid black;
             width: 2em;
             height: 2em;
             transform: translateZ(0);
@@ -95,7 +96,7 @@
             color: #4c4c4c;
             font-size: 0.7em;
             font-weight: 400;
-            font-family: 'gt-eesti', serif;
+
         }
 
         @keyframes spin {
@@ -193,7 +194,7 @@
     <app-component></app-component>
     <app-loader>
         <spinner></spinner>
-        <spinner-text>LADDAR ELPRISER</spinner-text>
+        <spinner-text>در حال بارگذاری</spinner-text>
     </app-loader>
 </body>
 
