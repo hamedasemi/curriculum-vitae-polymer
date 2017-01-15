@@ -1,0 +1,122 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<link rel="import" href="/app/shared/shared-layout/shared-layout.html">
+<link rel="import" href="/app/shared/shared-content/shared-content.html">
+
+<link rel="import" href="/app/core/x-icon/x-icon.html">
+
+<dom-module id="campaign-button-element">
+	<template>
+		<style>
+			:host {
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				    -ms-user-select: none;
+				        user-select: none;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+                min-width: 16rem;
+                max-width: 22rem;
+			}
+
+			button {
+				-ms-flex-align: center;
+				    align-items: center;
+				margin: 0;
+                padding: 0;
+				outline: none;
+				border: none;
+				font-family: 'corporate-s', sans-serif;
+				font-size: 1.6rem;
+				font-weight: var(--font-weight-medium);
+				line-height: 1;
+				text-transform: uppercase;
+				text-decoration: none;
+				color: black;
+				color: #222222;
+				background: none;
+                -ms-flex-positive: 1;
+                    flex-grow: 1;
+                border-radius: .4em;
+                background-color: #E9F3DF;
+                overflow: hidden;
+			}
+
+            button::-moz-focus-inner {
+                padding: 0;
+                border: 0
+            }
+
+			button div {
+				@apply(--flex-row);
+                -ms-flex-align: center;
+                    align-items: center;
+			}
+
+            x-icon[big] {
+                width: 2.2em;
+				height: 2.2em;
+                background-color: #CDE5BB;
+                padding: var(--xxs-shared-content);
+                fill: black;
+                fill: #222222;
+            }
+
+            button div span {
+				padding: var(--xxs-shared-content);
+                line-height: 0.9;
+			}
+
+            x-icon[name~="icon-forward-arrow"] {
+                width: .8em;
+				height: .8em;
+                padding-right: var(--xxs-shared-content);
+                fill: black;
+                fill: #222222;
+            }
+
+			button:focus {
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, .12), 0 6px 10px 0 rgba(0, 0, 0, .24);
+			}
+
+			@media (any-pointer: fine) {
+
+				button:hover {
+								cursor: pointer;
+								opacity: 0.7;
+				}
+}
+		</style>
+
+		<button ontouchstart="">
+            <!-- Div is firefox-fix -->
+            <div>
+                <x-icon name="[[currentIcon(campaignType)]]" big=""></x-icon>
+                <span>[[localize(&apos;general.button.campaignToogle&apos;, &apos;type&apos;, campaignType)]]</span>
+                <x-icon name="icon-forward-arrow"></x-icon>
+            </div>
+        </button>
+	</template>
+
+	<script>"use strict";
+
+Polymer({
+
+    is: "campaign-button-element",
+
+    behaviors: [Polymer.Behaviors.Resource],
+
+    properties: {
+        campaignType: {
+            type: String
+        }
+    },
+
+    currentIcon: function currentIcon(campaignType) {
+        return campaignType === "standard" ? "icon-business" : "icon-private";
+    }
+});</script>
+
+</dom-module>

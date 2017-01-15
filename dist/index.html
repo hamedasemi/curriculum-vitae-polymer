@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Teckna elavtal och se aktuella elpriser | fortum.se</title>
+
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#DDEACF">
+    <link rel="icon" type="image/png" href="assets/icons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="assets/icons/favicon-32x32.png" sizes="32x32">
+
+
+    <script>'use strict';
+
+window.performance && performance.mark && performance.mark('app-load-start');
+window.Polymer = { dom: 'shady' };</script>
+
+    <!--<link rel="stylesheet" href="assets/fonts/gt-eesti-bold.css">
+    <link rel="stylesheet" href="assets/fonts/gt-eesti-medium.css">
+    <link rel="stylesheet" href="assets/fonts/gt-eesti-regular.css">-->
+
+    <script src="assets/libs/webcomponentsjs/webcomponents-lite.min.js" async></script>
+    <link rel="import" href="assets/libs/polymer/polymer.html" async>
+    <link rel="import" href="app/app-component.html" async>
+
+    <style>
+
+        html {
+            margin: 0;
+            padding: 0;
+            font-size: 52.5%;
+            height: 100%;
+            background: white;
+        }
+
+        html[xx-small] { font-size: 62.5%; }
+        html[small] { font-size: 62.5%; }
+        html[medium] { font-size: 62.5%; }
+        html[x-large] { font-size: 80%; }
+
+        body {
+            margin: 0;
+            height: 100%;
+            min-width: 300px;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+                flex-direction: column;
+            -ms-flex-positive: 1;
+                flex-grow: 1;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            font-family: Courier New, Courier, monospace;
+        }
+
+        ::-moz-selection {
+            background-color: #def3e5;
+        }
+
+        ::selection {
+            background-color: #def3e5;
+        }
+
+        [generation~="modern"] nosupport {
+            display: none;
+        }
+
+        body:not([loaded]) app-component {
+            display: none;
+        }
+
+        body[loaded] app-loader {
+            display: none;
+        }
+
+        app-loader {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 20px;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+                flex-direction: column;
+            -ms-flex-align: center;
+                align-items: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        }
+
+        spinner {
+            border: .5em solid #ededed;
+            border-right: .5em solid black;
+            width: 2em;
+            height: 2em;
+            transform: translateZ(0);
+            animation: spin 1200ms infinite cubic-bezier(0.600, 0.000, 0.400, 1.000);
+            -webkit-backface-visibility: hidden;
+                    backface-visibility: hidden;
+            border-radius: 50%;
+            margin-bottom: 1.2em;
+        }
+
+        spinner-text {
+            color: #4c4c4c;
+            font-size: 0.7em;
+            font-weight: 400;
+
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        noscript,
+        nosupport {
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #fff;
+            padding: 2rem;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+                flex-direction: column;
+            -ms-flex-pack: center;
+                justify-content: center;
+            -ms-flex-align: center;
+                align-items: center;
+            -ms-flex-positive: 1;
+                flex-grow: 1;
+        }
+
+        noscript h1,
+        nosupport h1 {
+            margin: 0;
+            color: #5ac37d;
+            font-family: 'gt-eesti', serif;
+            font-size: 4.0rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        noscript p,
+        nosupport p {
+            margin: 0;
+            font-family: 'gt-eesti', sans-serif;
+            color: #4c4c4c;
+            font-size: 1.9rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            max-width: 50rem;
+            text-align: center;
+        }
+
+        noscript contact-container,
+        nosupport contact-container {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+                align-items: center;
+        }
+
+        noscript contact-container a,
+        nosupport contact-container a {
+            display: block;
+            margin: 0;
+            padding: 0;
+            font-style: normal;
+            color: #5ac37d;
+            line-height: 1.1;
+            font-family: 'gt-eesti', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        noscript contact-container svg,
+        nosupport contact-container svg {
+            fill: #4c4c4c;
+        }
+    </style>
+
+</head>
+
+<body generation="modern">
+    <noscript>
+        <h1>Din webbl&#xE4;sare st&#xF6;djer ej javascript :(</h1>
+        <p>Som tur &#xE4;r finns vi tillg&#xE4;ngliga dygnet runt, vi besvarar g&#xE4;rna ditt &#xE4;rende p&#xE5; numret nedan.</p>
+        <contact-container>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 15 31" width="42" height="42"><g stroke="none" stroke-width="1" fill-rule="evenodd"><path class="path1" d="M0,1.99821383 C0,0.894630804 0.893397331,0 1.99188419,0 L13.0081158,0 C14.1082031,0 15,0.894337654 15,1.99821383 L15,29.0017862 C15,30.1053692 14.1066027,31 13.0081158,31 L1.99188419,31 C0.891796927,31 0,30.1056623 0,29.0017862 L0,1.99821383 Z M1,5 L14,5 L14,24 L1,24 L1 5 Z M7.5,29 C8.32842712,29 9,28.3284271 9,27.5 C9,26.6715729 8.32842712,26 7.5,26 C6.67157288,26 6,26.6715729 6,27.5 C6,28.3284271 6.67157288,29 7.5,29 Z"/></g></svg>
+            <a href="tel:020460000">020 - 46 00 00</a>
+        </contact-container>
+    </noscript>
+    <nosupport>
+        <h1>Din webbl&#xE4;sare &#xE4;r gammal!</h1>
+        <p>Som tur &#xE4;r finns vi tillg&#xE4;ngliga dygnet runt, vi besvarar g&#xE4;rna ditt &#xE4;rende p&#xE5; numret nedan.</p>
+        <contact-container>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 15 31" width="42" height="42"><g stroke="none" stroke-width="1" fill-rule="evenodd"><path class="path1" d="M0,1.99821383 C0,0.894630804 0.893397331,0 1.99188419,0 L13.0081158,0 C14.1082031,0 15,0.894337654 15,1.99821383 L15,29.0017862 C15,30.1053692 14.1066027,31 13.0081158,31 L1.99188419,31 C0.891796927,31 0,30.1056623 0,29.0017862 L0,1.99821383 Z M1,5 L14,5 L14,24 L1,24 L1 5 Z M7.5,29 C8.32842712,29 9,28.3284271 9,27.5 C9,26.6715729 8.32842712,26 7.5,26 C6.67157288,26 6,26.6715729 6,27.5 C6,28.3284271 6.67157288,29 7.5,29 Z"/></g></svg>
+            <a href="tel:020460000">020 - 46 00 00</a>
+        </contact-container>
+    </nosupport>
+    <app-component></app-component>
+    <app-loader>
+        <spinner></spinner>
+        <spinner-text>&#x62F;&#x631; &#x62D;&#x627;&#x644; &#x628;&#x627;&#x631;&#x6AF;&#x630;&#x627;&#x631;&#x6CC;</spinner-text>
+    </app-loader>
+</body>
+
+</html>

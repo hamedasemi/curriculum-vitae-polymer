@@ -1,0 +1,214 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<link rel="import" href="/app/core/spinner/spinner-element.html">
+
+<dom-module id="action-button-element">
+
+	<template>
+
+		<style>
+			:host --shadow-style: {
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, .12), 0 6px 10px 0 rgba(0, 0, 0, .24);
+}
+
+:host --primary-style: {
+				color: white;
+				text-transform: uppercase;
+				background-color: black;
+				background-color: #4f9b00;
+				border: 0.2em solid black;
+				border: 0.2em solid #4f9b00;
+				padding: 0.8em 2em;
+}
+
+:host --secondary-style: {
+				color: black;
+				color: #002e54;
+				text-transform: none;
+				background-color: transparent;
+				border: 0.2em solid black;
+				border: 0.2em solid #002e54;
+				white-space: nowrap;
+				padding: 0.8em 1.2em;
+}
+
+:host --disabled-style: {
+				pointer-events: none;
+				cursor: auto;
+}
+
+:host --primary-disabled-style: {
+				background-color: black;
+				background-color: #BACDA4;
+				border: 0.2em solid black;
+				border: 0.2em solid #BACDA4;
+}
+
+:host --secondary-disabled-style: {
+				background-color: black;
+				background-color: #EFF3F6;
+				border: 0.2em solid black;
+				border: 0.2em solid #6F91AA;
+				color: black;
+				color: #6F91AA;
+}
+
+:host --primary-hover-style: {
+				background-color: black;
+				background-color: #2c5800;
+				border: 0.2em solid black;
+				border: 0.2em solid #2c5800;
+				cursor: pointer;
+
+				@apply(--shadow-style);
+}
+
+:host --secondary-hover-style {
+				color: white;
+				background-color: black;
+				background-color: #002e54;
+				border: 0.2em solid black;
+				border: 0.2em solid #002e54;
+				cursor: pointer;
+
+				@apply(--shadow-style);
+}
+
+			:host {
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				    -ms-user-select: none;
+				        user-select: none;
+				margin-bottom: 1.5em;
+			}
+
+			:host[hidden] {
+				display: none;
+			}
+
+			:host button {
+				border: none;
+				outline: none;
+				color: inherit;
+				min-width: 8em;
+				text-decoration: none;
+				font-size: 1.6rem;
+				color: white;
+				outline: none;
+				text-align: center;
+				@apply(--primary-style);
+                transition: background-color ease-in .2s, border ease-in .2s, color ease-in .15s;
+			}
+
+			:host button,
+			:host(:not([disabled])) button {
+				-webkit-backface-visibility: hidden;
+				        backface-visibility: hidden;
+			}
+
+			:host button:focus:hover,
+			:host(:not([disabled])) button:hover {
+				@apply(--primary-hover-style);
+			}
+
+			:host button:focus,
+			:host(:not([disabled])) button:focus {
+				background-color: black;
+				background-color: #458812;
+				border: 0.2em solid black;
+				border: 0.2em solid #458812;
+				@apply(--shadow-style);
+			}
+
+			:host([disabled]) {
+				@apply(--disabled-style);
+			}
+
+			:host([disabled]) button {
+				@apply(--disabled-style);
+				@apply(--primary-disabled-style);
+                transition-duration: .15s;
+
+			}
+
+			:host([secondary]) button,
+			:host([secondary]:not([disabled])) button {
+				@apply(--secondary-style);
+			}
+
+			:host([secondary]) button:focus:hover,
+			:host([secondary]:not([disabled])) button:focus:hover,
+			:host([secondary]) button:hover,
+			:host([secondary]:not([disabled])) button:hover {
+				color: white;
+                background-color: black;
+                background-color: #002e54;
+                border: 0.2em solid black;
+                border: 0.2em solid #002e54;
+                cursor: pointer;
+                @apply(--shadow-style);
+			}
+
+			:host([secondary]) button:focus,
+			:host([secondary]:not([disabled])) button:focus {
+				background-color: black;
+				background-color: #F5FCFE;
+				border: 0.2em solid black;
+				border: 0.2em solid #002e54;
+				@apply(--shadow-style);
+			}
+
+			:host([secondary][disabled]) button {
+				@apply(--disabled-style);
+				@apply(--secondary-disabled-style);
+			}
+
+			:host(:not([loading])) spinner-element {
+				display: none;
+			}
+
+			:host([loading]) button-content {
+				display: -ms-flexbox;
+				display: flex;
+				-ms-flex-align: center;
+				    align-items: center;
+			}
+
+			:host([loading]) spinner-element {
+				width: 1.6rem;
+				height: 1.6rem;
+				margin-left: 8px;
+			}
+
+			:host([margin-none]) {
+				margin-bottom: 0;
+			}
+		</style>
+		<button>
+            <button-content>
+                <content></content>
+                <spinner-element></spinner-element>
+            </button-content>
+        </button>
+
+	</template>
+
+	<script>'use strict';
+
+Polymer({
+    is: "action-button-element",
+    hostAttributes: {
+        role: 'link'
+    },
+    properties: {
+        link: {
+            type: String,
+            value: '',
+            reflectToAttribute: true
+        }
+    }
+});</script>
+
+</dom-module>

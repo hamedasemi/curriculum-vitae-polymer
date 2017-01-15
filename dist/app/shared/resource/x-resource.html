@@ -1,0 +1,74 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<script>"use strict";
+
+Polymer.Behaviors = Polymer.Behaviors || {};
+Polymer.Behaviors.Resource = [Polymer.AppLocalizeBehavior, {
+
+    properties: {
+        language: {
+            value: "sv"
+        },
+        formats: {
+            type: Object,
+            value: function value() {
+                return {
+                    number: {
+                        ÖRE: {
+                            style: "decimal",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        },
+                        SEK: {
+                            style: "decimal",
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0
+                        }
+                    }
+                };
+            }
+        },
+        resources: {
+            value: function value() {
+                return {
+                    sv: {
+                        "formats.number": "{value, number}",
+                        "formats.number.kwhPerYearUnit": "{value, number} kWh/\xE5r",
+                        "formats.currency.swedish": "{price, number, SEK} kr",
+                        "formats.currency.swedishDecimal": "{price, number, \xD6RE} {unit}",
+                        "formats.currency.swedishBasedOnUnit": "{unit, select, \xF6re/kWh {{price, number, \xD6RE} {unit}} kr/m\xE5n {{price, number, SEK} {unit}} other {?????}}",
+                        //-----------------------
+                        // UNITS
+                        //-----------------------
+                        "unit.currency.swedishOrePerKwh": "\xF6re/kWh",
+                        //-----------------------
+                        // ORIGIN
+                        //-----------------------
+                        "origin-selection.footer.text": "Fortum Markets samlade elf\xF6rs\xE4ljning i Sverige hade under 2015 f\xF6ljande ursprung: 22 % k\xE4rnkraft och 78 % f\xF6rnybara energik\xE4llor (sol-, vind- och vattenkraft).",
+                        "origin-selection.preferred.title": "Rekommenderas",
+                        "origin-selection.discount.title": "Just nu",
+                        "origin-selection.card.title": "{type, select, vind {Vindkraft} solel {Solkraft} vatten {Vattenkraft} other {?????}}",
+                        //-----------------------
+                        // GENERAL
+                        //-----------------------
+                        "general.button.go-back": "Tillbaka",
+                        "general.button.close": "St\xE4ng",
+                        "general.button.continue": "Forts\xE4tt",
+                        "general.button.choose": "V\xE4lj",
+                        "general.button.campaignToogle": "{type, select, standard {F\xF6retag} business {Privat} other {?????}}",
+
+                        //-----------------------
+                        // ERRORS
+                        //-----------------------
+
+
+                        // Not done. Dependant of other changes.
+                        "business.error.complementary.header": "Oj, n\xE5got gick fel!",
+                        "business.error.complementary.number": "020 - 46 00 00",
+                        "business.error.complementary.p": "Som tur \xE4r finns vi tillg\xE4ngliga dygnet runt, vi besvarar g\xE4rna ditt \xE4rende p\xE5 numret nedan."
+                    }
+                };
+            }
+        }
+    }
+}];</script>

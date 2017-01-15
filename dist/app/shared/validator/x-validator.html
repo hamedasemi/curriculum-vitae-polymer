@@ -1,0 +1,16 @@
+<link rel="import" href="/assets/libs/polymer/polymer.html">
+
+<dom-module id="x-validator">
+    <script>"use strict";
+
+Polymer({
+
+    is: "x-validator",
+
+    isValidOrganisationNumberPattern: function isValidOrganisationNumberPattern(organisationNumber) {
+        var pattern = new RegExp("^[0-9]{0,6}-?[0-9]{0,4}$|^[0-9]{0,8}-?[0-9]{0,4}$");
+        return pattern.test(organisationNumber);
+    }
+
+});</script>
+</dom-module>
