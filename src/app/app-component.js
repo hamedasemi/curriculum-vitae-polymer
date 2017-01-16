@@ -233,7 +233,7 @@ Polymer({
             this.importHref(`/app/shared/lazy/lazy.html`, function() {
                 window.performance && performance.mark && performance.mark(`end-lazy-load`);
                 window.performance && performance.measure && performance.measure(`Lazy load`, `start-lazy-load`, `end-lazy-load`);
-                this.importHref(`/app/shared/chat/chat.html`, null, null, true);
+                // this.importHref(`/app/shared/chat/chat.html`, null, null, true);
             }, null, true);
         });
     },
