@@ -3,30 +3,25 @@
 
 <head>
     <title>Teckna elavtal och se aktuella elpriser | fortum.se</title>
-
     <base href="/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#DDEACF">
     <link rel="icon" type="image/png" href="assets/icons/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="assets/icons/favicon-32x32.png" sizes="32x32">
-
-
     <script>
         window.performance && performance.mark && performance.mark(`app-load-start`);
-        window.Polymer = { dom: 'shady' };
+        window.Polymer = {
+            dom: 'shady'
+        };
     </script>
-
     <!--<link rel="stylesheet" href="assets/fonts/gt-eesti-bold.css">
     <link rel="stylesheet" href="assets/fonts/gt-eesti-medium.css">
     <link rel="stylesheet" href="assets/fonts/gt-eesti-regular.css">-->
-
     <script src="assets/libs/webcomponentsjs/webcomponents-lite.min.js" async></script>
     <link rel="import" href="assets/libs/polymer/polymer.html" async>
     <link rel="import" href="app/app-component.html" async>
-
     <style>
-
         html {
             margin: 0;
             padding: 0;
@@ -35,10 +30,21 @@
             background: white;
         }
 
-        html[xx-small] { font-size: 62.5%; }
-        html[small] { font-size: 62.5%; }
-        html[medium] { font-size: 62.5%; }
-        html[x-large] { font-size: 80%; }
+        html[xx-small] {
+            font-size: 62.5%;
+        }
+
+        html[small] {
+            font-size: 62.5%;
+        }
+
+        html[medium] {
+            font-size: 62.5%;
+        }
+
+        html[x-large] {
+            font-size: 80%;
+        }
 
         body {
             margin: 0;
@@ -51,7 +57,7 @@
             font-family: Courier New, Courier, monospace;
         }
 
-        ::selection {
+         ::selection {
             background-color: #def3e5;
         }
 
@@ -81,27 +87,31 @@
         }
 
         spinner {
-            border: .5em solid #ededed;
-            border-right: .5em solid black;
-            width: 2em;
-            height: 2em;
-            transform: translateZ(0);
-            animation: spin 1200ms infinite cubic-bezier(0.600, 0.000, 0.400, 1.000);
-            backface-visibility: hidden;
-            border-radius: 50%;
-            margin-bottom: 1.2em;
+            display: flex;
+            width: 200px;
+        }
+
+        spinner g {
+            stroke-dasharray: 3000;
+            stroke-width: 3px;
+            fill: transparent;
+            stroke: black;
+            animation: dash 3s both infinite;
         }
 
         spinner-text {
             color: #4c4c4c;
             font-size: 0.7em;
             font-weight: 400;
-
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes dash {
+            from {
+                stroke-dashoffset: -3000;
+            }
+            to {
+                stroke-dashoffset: 3000;
+            }
         }
 
         noscript,
@@ -120,58 +130,7 @@
             align-items: center;
             flex-grow: 1;
         }
-
-        noscript h1,
-        nosupport h1 {
-            margin: 0;
-            color: #5ac37d;
-            font-family: 'gt-eesti', serif;
-            font-size: 4.0rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        noscript p,
-        nosupport p {
-            margin: 0;
-            font-family: 'gt-eesti', sans-serif;
-            color: #4c4c4c;
-            font-size: 1.9rem;
-            font-weight: 400;
-            margin-bottom: 2.5rem;
-            max-width: 50rem;
-            text-align: center;
-        }
-
-        noscript contact-container,
-        nosupport contact-container {
-            display: flex;
-            align-items: center;
-        }
-
-        noscript contact-container a,
-        nosupport contact-container a {
-            display: block;
-            margin: 0;
-            padding: 0;
-            font-style: normal;
-            color: #5ac37d;
-            line-height: 1.1;
-            font-family: 'gt-eesti', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-decoration: none;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        noscript contact-container svg,
-        nosupport contact-container svg {
-            fill: #4c4c4c;
-        }
     </style>
-
 </head>
 
 <body generation="modern">
@@ -179,7 +138,11 @@
         <h1>Din webbläsare stödjer ej javascript :(</h1>
         <p>Som tur är finns vi tillgängliga dygnet runt, vi besvarar gärna ditt ärende på numret nedan.</p>
         <contact-container>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 15 31" width="42" height="42"><g stroke="none" stroke-width="1" fill-rule="evenodd"><path class="path1" d="M0,1.99821383 C0,0.894630804 0.893397331,0 1.99188419,0 L13.0081158,0 C14.1082031,0 15,0.894337654 15,1.99821383 L15,29.0017862 C15,30.1053692 14.1066027,31 13.0081158,31 L1.99188419,31 C0.891796927,31 0,30.1056623 0,29.0017862 L0,1.99821383 Z M1,5 L14,5 L14,24 L1,24 L1 5 Z M7.5,29 C8.32842712,29 9,28.3284271 9,27.5 C9,26.6715729 8.32842712,26 7.5,26 C6.67157288,26 6,26.6715729 6,27.5 C6,28.3284271 6.67157288,29 7.5,29 Z"></path></g></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 15 31" width="42" height="42">
+                <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                    <path class="path1" d="M0,1.99821383 C0,0.894630804 0.893397331,0 1.99188419,0 L13.0081158,0 C14.1082031,0 15,0.894337654 15,1.99821383 L15,29.0017862 C15,30.1053692 14.1066027,31 13.0081158,31 L1.99188419,31 C0.891796927,31 0,30.1056623 0,29.0017862 L0,1.99821383 Z M1,5 L14,5 L14,24 L1,24 L1 5 Z M7.5,29 C8.32842712,29 9,28.3284271 9,27.5 C9,26.6715729 8.32842712,26 7.5,26 C6.67157288,26 6,26.6715729 6,27.5 C6,28.3284271 6.67157288,29 7.5,29 Z"></path>
+                </g>
+            </svg>
             <a href="tel:020460000">020 - 46 00 00</a>
         </contact-container>
     </noscript>
@@ -187,13 +150,25 @@
         <h1>Din webbläsare är gammal!</h1>
         <p>Som tur är finns vi tillgängliga dygnet runt, vi besvarar gärna ditt ärende på numret nedan.</p>
         <contact-container>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 15 31" width="42" height="42"><g stroke="none" stroke-width="1" fill-rule="evenodd"><path class="path1" d="M0,1.99821383 C0,0.894630804 0.893397331,0 1.99188419,0 L13.0081158,0 C14.1082031,0 15,0.894337654 15,1.99821383 L15,29.0017862 C15,30.1053692 14.1066027,31 13.0081158,31 L1.99188419,31 C0.891796927,31 0,30.1056623 0,29.0017862 L0,1.99821383 Z M1,5 L14,5 L14,24 L1,24 L1 5 Z M7.5,29 C8.32842712,29 9,28.3284271 9,27.5 C9,26.6715729 8.32842712,26 7.5,26 C6.67157288,26 6,26.6715729 6,27.5 C6,28.3284271 6.67157288,29 7.5,29 Z"></path></g></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 15 31" width="42" height="42">
+                <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                    <path class="path1" d="M0,1.99821383 C0,0.894630804 0.893397331,0 1.99188419,0 L13.0081158,0 C14.1082031,0 15,0.894337654 15,1.99821383 L15,29.0017862 C15,30.1053692 14.1066027,31 13.0081158,31 L1.99188419,31 C0.891796927,31 0,30.1056623 0,29.0017862 L0,1.99821383 Z M1,5 L14,5 L14,24 L1,24 L1 5 Z M7.5,29 C8.32842712,29 9,28.3284271 9,27.5 C9,26.6715729 8.32842712,26 7.5,26 C6.67157288,26 6,26.6715729 6,27.5 C6,28.3284271 6.67157288,29 7.5,29 Z"></path>
+                </g>
+            </svg>
             <a href="tel:020460000">020 - 46 00 00</a>
         </contact-container>
     </nosupport>
     <app-component></app-component>
     <app-loader>
-        <spinner></spinner>
+        <spinner>
+            <svg width="474px" height="561px" viewBox="0 0 474 561" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g>
+                    <path d="M4.93404518,92.4732835 C70.4564926,122.653201 137.400614,149.344353 205.097387,174.186039 C263.302394,196.169461 322.34368,216.513583 378.207107,244.297602 C397.441521,254.679829 417.930352,265.10409 431.47807,282.926214 C436.99751,288.768844 432.565232,296.797207 431.05993,303.354403 C423.74249,324.581225 413.079935,344.378914 403.420914,364.51287 C376.11641,323.614459 334.678793,295.914507 294.161083,269.727755 C200.372411,210.37672 100.269833,162.164513 4.18139422,106.806642 C4.39046393,103.191778 4.76678941,96.0461149 4.93404518,92.4732835 Z"></path>
+                    <path d="M5.68669614,55.8457996 C87.9347205,6.37259293 187.242833,-6.65773338 281.407831,2.92586146 C338.902002,9.02069151 396.814312,21.6306847 448.496344,48.5320035 C458.698946,54.8370002 474.170105,61.8145297 471.410384,76.4841552 C467.103548,120.114732 460.873271,163.535142 456.273737,207.081651 C433.945092,203.929153 411.658261,200.146155 389.413244,196.363157 C388.744221,162.274142 382.304874,126.587861 360.143484,99.5604427 C318.078658,44.6229057 235.412495,26.9268819 175.158604,61.1419968 C147.979541,75.6434889 127.867035,100.190942 112.85583,126.713961 C76.3522585,113.557535 40.3086403,99.0980763 4.18139422,84.9748839 C4.64134759,75.2651891 5.14311489,65.5554944 5.68669614,55.8457996 Z"></path>
+                    <path d="M0,113.489939 C107.670901,178.51547 222.491986,231.645575 325.396098,304.531336 C350.777161,323.992759 379.963293,343.622315 391.796638,374.726965 C387.866128,387.967458 379.127014,398.980185 371.893202,410.497312 C335.264189,466.023316 294.244711,520.246286 239.9284,559.463365 C174.029627,520.666619 124.898245,459.508152 83.5442565,396.163953 C70.6237484,375.945931 58.0795657,355.223509 50.5530561,332.273321 C74.554259,350.179511 92.8687656,374.138498 114.737457,394.398554 C142.292845,420.333107 170.642698,446.057493 203.173945,465.602982 C211.244036,469.89038 221.404824,476.279443 230.353008,470.26868 C250.549142,458.45732 258.744674,429.202135 246.953143,408.731913 C235.161611,387.715258 216.052639,372.246999 197.445435,357.535341 C145.010752,317.981995 86.9729998,286.751245 32.4894331,250.182265 C24.2520865,244.255568 14.5094379,237.866505 13.2132057,226.769711 C5.81213797,189.444131 1.96525528,151.446018 0,113.489939 Z"></path>
+                </g>
+            </svg>
+        </spinner>
         <spinner-text>در حال بارگذاری</spinner-text>
     </app-loader>
 </body>
