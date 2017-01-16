@@ -93,7 +93,7 @@
             stroke-width: 3px;
             fill: transparent;
             stroke: black;
-            animation: dash 3s both infinite;
+            animation: dash 2s cubic-bezier(.26,.66,1,.37) infinite;
         }
 
         spinner-text {
@@ -104,10 +104,10 @@
 
         @keyframes dash {
             from {
-                stroke-dashoffset: -3000;
+                stroke-dashoffset: -2000;
             }
             to {
-                stroke-dashoffset: 3000;
+                stroke-dashoffset: 2000;
             }
         }
 
