@@ -78,7 +78,7 @@ jspm_packages
 # Web Projects
 # --------------------------------------------------
 #
-www
+dist
 src/assets/libs/*
 !src/assets/libs/.bowerrc
 !src/assets/libs/bower.json
