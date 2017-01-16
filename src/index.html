@@ -127,6 +127,46 @@
             align-items: center;
             flex-grow: 1;
         }
+
+        @keyframes loading {
+            0 {
+                transform: translateX(-20%);
+                width: 20%;
+            }
+            30%{
+                transform: translateX(20%);
+                width: 40%;
+            }
+            50%{
+                width: 100%;
+            }
+            100% {
+                transform: translateX(250%);
+                width: 50%;
+            }
+        }
+
+        loader[linear] {
+            height: 1px;
+            width: 300px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            background-color: lightgrey;
+        }
+
+        loader[linear]:before {
+            transform: translateX(-100%);
+            display: block;
+            position: absolute;
+            content: "";
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background-color: black;
+            animation: loading 2s linear infinite;
+        }
+
     </style>
 </head>
 
@@ -157,6 +197,7 @@
     </nosupport>
     <app-component></app-component>
     <app-loader>
+        <loader linear></loader>
         <spinner>
             <svg width="474px" height="561px" viewBox="0 0 474 561" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g>
