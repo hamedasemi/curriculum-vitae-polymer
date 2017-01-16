@@ -19,7 +19,8 @@
 
     // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the file.exclude setting.
     "search.exclude": {
-        "**/app/assets": true,
+        "**/assets": true,
+        "**/dist": true,
         "**/gulp": false,
         "**/www": true,
         "**/resources": false,
