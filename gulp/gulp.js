@@ -33,7 +33,7 @@ export const polymer = parallel(
 
 export const start = parallel(
     localesList,
-    angular,
+    // angular,
     polymer
 )
 
