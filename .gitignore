@@ -79,6 +79,7 @@ jspm_packages
 # --------------------------------------------------
 #
 dist
+bower_components
 src/assets/libs/*
 !src/assets/libs/.bowerrc
 !src/assets/libs/bower.json
