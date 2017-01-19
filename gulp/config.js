@@ -2,13 +2,13 @@ export let config = {
     cwd: `./..`,
     polymer: {
         scripts: [
-            `./src/+(app/core)/**/*.js`
+            `./src/**/*.js`
         ],
         styles: [
-            `./src/+(app/core)/**/*.css`
+            `./src/**/*.css`
         ],
         markups: [
-            `./src/+(app/core)/**/*.html`
+            `./src/**/*.html`
         ]
     },
     angular: {
