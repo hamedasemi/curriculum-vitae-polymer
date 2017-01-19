@@ -1,0 +1,95 @@
+<dom-module id="web-application">
+    <template>
+        <style>
+             :host {
+                --my-theme-color: green;
+            }
+
+             :host {
+                color: blue;
+            }
+
+            [direction~=rtl] {
+                direction: rtl;
+                color: pink;
+            }
+
+             :host ::slotted(span) {
+                color: var(--my-theme-color);
+            }
+        </style>
+        <h1>text
+            <slot name="span"></slot> and</h1>
+        <dom-repeat items="[[verses]]" as="verse">
+            <template>
+                <dom-repeat items="[[verse.originals]]" as="original">
+                    <template>
+                        <span direction$="[[original.style.direction]]">[[original.language]]: [[original.context]]</span>
+                    </template>
+                </dom-repeat>
+                <dom-repeat items="[[verse.translations]]" as="translation">
+                    <template>
+                        <span direction$="[[translation.style.direction]]">[[translation.language]]: [[translation.context]]</span>
+                    </template>
+                </dom-repeat>
+            </template>
+        </dom-repeat>
+    </template>
+    <script>
+        class WebApplication extends Polymer.Element {
+            static get is() {
+                return `web-application`;
+            }
+            static get config() {
+                return {
+                    properties: {
+                        verses: {
+                            type: Array,
+                            value: []
+                        }
+                    },
+                    observers: []
+                }
+            }
+            constructor() {
+                super();
+                this.verses = [{
+                    "index": 1,
+                    "metadata": {
+                        "order": 10,
+                        "chapter": 2,
+                        "part": 8,
+                        "stage": 2,
+                        "section": 34,
+                        "page": 4
+                    },
+                    "translations": [{
+                        "style": {
+                            "direction": "ltr",
+                            "charset": "utf-8"
+                        },
+                        "language": "en",
+                        "context": "In the name of Allah, the Entirely Merciful, the Especially Merciful."
+                    }, {
+                        "style": {
+                            "direction": "rtl",
+                            "charset": "utf-8"
+                        },
+                        "language": "fa",
+                        "context": "به نام خداوند بخشنده بخشایشگر"
+                    }],
+                    "originals": [{
+                        "style": {
+                            "direction": "rtl",
+                            "charset": "utf-8"
+                        },
+                        "language": "ar",
+                        "type": "simple",
+                        "context": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
+                    }]
+                }];
+            }
+        }
+        customElements.define(WebApplication.is, WebApplication);
+    </script>
+</dom-module>
