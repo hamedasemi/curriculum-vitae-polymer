@@ -15,9 +15,9 @@
             dom: 'shady'
         };
     </script>
-    <script src="assets/libs/webcomponentsjs/webcomponents-lite.min.js" async></script>
-    <link rel="import" href="assets/libs/polymer/polymer.html" async>
-    <link rel="import" href="app/app-component.html" async>
+    <script src="webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="polymer/polymer.html">
+    <link rel="import" href="web-application/web-application.html">
     <style>
         html {
             margin: 0;
@@ -93,7 +93,7 @@
             stroke-width: 3px;
             fill: transparent;
             stroke: black;
-            animation: dash 2s cubic-bezier(.26,.66,1,.37) infinite;
+            animation: dash 4s cubic-bezier(.26, .66, 1, .37) infinite;
         }
 
         spinner-text {
@@ -104,10 +104,10 @@
 
         @keyframes dash {
             from {
-                stroke-dashoffset: -2000;
+                stroke-dashoffset: -500;
             }
             to {
-                stroke-dashoffset: 2000;
+                stroke-dashoffset: 500;
             }
         }
 
@@ -133,11 +133,11 @@
                 transform: translateX(-20%);
                 width: 20%;
             }
-            30%{
+            30% {
                 transform: translateX(20%);
                 width: 40%;
             }
-            50%{
+            50% {
                 width: 100%;
             }
             100% {
@@ -166,7 +166,6 @@
             background-color: black;
             animation: loading 2s linear infinite;
         }
-
     </style>
 </head>
 
@@ -195,15 +194,34 @@
             <a href="tel:020460000">020 - 46 00 00</a>
         </contact-container>
     </nosupport>
-    <app-component></app-component>
+    <web-application>
+        <span slot="span">"I am from span slot"</span>
+    </web-application>
     <app-loader>
         <loader linear></loader>
         <spinner>
-            <svg width="474px" height="561px" viewBox="0 0 474 561" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g>
-                    <path d="M4.93404518,92.4732835 C70.4564926,122.653201 137.400614,149.344353 205.097387,174.186039 C263.302394,196.169461 322.34368,216.513583 378.207107,244.297602 C397.441521,254.679829 417.930352,265.10409 431.47807,282.926214 C436.99751,288.768844 432.565232,296.797207 431.05993,303.354403 C423.74249,324.581225 413.079935,344.378914 403.420914,364.51287 C376.11641,323.614459 334.678793,295.914507 294.161083,269.727755 C200.372411,210.37672 100.269833,162.164513 4.18139422,106.806642 C4.39046393,103.191778 4.76678941,96.0461149 4.93404518,92.4732835 Z"></path>
-                    <path d="M5.68669614,55.8457996 C87.9347205,6.37259293 187.242833,-6.65773338 281.407831,2.92586146 C338.902002,9.02069151 396.814312,21.6306847 448.496344,48.5320035 C458.698946,54.8370002 474.170105,61.8145297 471.410384,76.4841552 C467.103548,120.114732 460.873271,163.535142 456.273737,207.081651 C433.945092,203.929153 411.658261,200.146155 389.413244,196.363157 C388.744221,162.274142 382.304874,126.587861 360.143484,99.5604427 C318.078658,44.6229057 235.412495,26.9268819 175.158604,61.1419968 C147.979541,75.6434889 127.867035,100.190942 112.85583,126.713961 C76.3522585,113.557535 40.3086403,99.0980763 4.18139422,84.9748839 C4.64134759,75.2651891 5.14311489,65.5554944 5.68669614,55.8457996 Z"></path>
-                    <path d="M0,113.489939 C107.670901,178.51547 222.491986,231.645575 325.396098,304.531336 C350.777161,323.992759 379.963293,343.622315 391.796638,374.726965 C387.866128,387.967458 379.127014,398.980185 371.893202,410.497312 C335.264189,466.023316 294.244711,520.246286 239.9284,559.463365 C174.029627,520.666619 124.898245,459.508152 83.5442565,396.163953 C70.6237484,375.945931 58.0795657,355.223509 50.5530561,332.273321 C74.554259,350.179511 92.8687656,374.138498 114.737457,394.398554 C142.292845,420.333107 170.642698,446.057493 203.173945,465.602982 C211.244036,469.89038 221.404824,476.279443 230.353008,470.26868 C250.549142,458.45732 258.744674,429.202135 246.953143,408.731913 C235.161611,387.715258 216.052639,372.246999 197.445435,357.535341 C145.010752,317.981995 86.9729998,286.751245 32.4894331,250.182265 C24.2520865,244.255568 14.5094379,237.866505 13.2132057,226.769711 C5.81213797,189.444131 1.96525528,151.446018 0,113.489939 Z"></path>
+            <svg width="91px" height="92px" viewBox="0 0 91 92" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+                <title>Artboard</title>
+                <desc>Created with Sketch.</desc>
+                <defs>
+                    <rect id="path-1" x="15.6704545" y="16.6704545" width="59.6590909" height="59.6590909"></rect>
+                    <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-1" y="-1" width="61.6590909" height="61.6590909">
+                        <rect x="14.6704545" y="15.6704545" width="61.6590909" height="61.6590909" fill="white"></rect>
+                        <use xlink:href="#path-1" fill="black"></use>
+                    </mask>
+                    <rect id="path-3" x="15.6704545" y="16.6704545" width="59.6590909" height="59.6590909"></rect>
+                    <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-1" y="-1" width="61.6590909" height="61.6590909">
+                        <rect x="14.6704545" y="15.6704545" width="61.6590909" height="61.6590909" fill="white"></rect>
+                        <use xlink:href="#path-3" fill="black"></use>
+                    </mask>
+                </defs>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Artboard" stroke="#9A9720" stroke-width="2">
+                        <use id="Rectangle-3" mask="url(#mask-2)" xlink:href="#path-1"></use>
+                        <use id="Rectangle-3" mask="url(#mask-4)" transform="translate(45.500000, 46.500000) rotate(-315.000000) translate(-45.500000, -46.500000) "
+                            xlink:href="#path-3"></use>
+                    </g>
                 </g>
             </svg>
         </spinner>
