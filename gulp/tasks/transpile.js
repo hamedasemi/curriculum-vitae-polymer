@@ -30,7 +30,7 @@ export function angularScriptTranspile() {
         src(config.angular.scripts),
         newer(config.dest),
         babel({
-            presets: [`es2015`],
+            presets: [`es2017`],
             plugins: [
                 `transform-es2015-modules-systemjs`,
                 `transform-decorators-legacy`
@@ -97,7 +97,7 @@ export function angularMarkupTranspile() {
             apply, customMedia, customProperties({ variables: sharedConfig.features.customProperties }), nested, cssMqpacker
         ]),
         polymerBabel({
-            presets: [`es2015`]
+            presets: [`es2017`]
         }),
         rename({
             extname: `.html`
@@ -133,7 +133,7 @@ export function polymerScriptTranspile() {
         src(config.polymer.scripts),
         newer(config.dest),
         babel({
-            presets: [`es2015`]
+            presets: [`es2017`]
         }),
         rename({
             extname: `.js`
@@ -166,7 +166,7 @@ export function polymerMarkupTranspile() {
             apply, customMedia, customProperties({ variables: sharedConfig.features.customProperties }), nested, cssMqpacker
         ]),
         polymerBabel({
-            presets: [`es2015`]
+            presets: [`es2017`]
         }),
         rename({
             extname: `.html`
