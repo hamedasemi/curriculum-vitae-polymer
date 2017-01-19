@@ -1,6 +1,6 @@
 {
     "hosting": {
-        "public": ["src", "dist"],
+        "public": ["bower_components", "dist", "src"],
         "rewrites": [{
             "source": "**",
             "destination": "/index.html"
