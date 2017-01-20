@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "6.0"
+env:
+  - APP_VERSION=default
+before_install:
+  - echo "before_install"
+install:
+  - npm install --global firebase-tools
+before_script:
+  - echo "before_script"
+script:
+  - echo "script"
+after_success:
+  - firebase deploy --project "recitation" --token "$FIREBASE_TOKEN" --only "hosting"
+  - firebase deploy --project "book-express" --token "$FIREBASE_TOKEN" --only "hosting"
