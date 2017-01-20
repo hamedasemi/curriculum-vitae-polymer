@@ -12,5 +12,4 @@ before_script:
 script:
   - echo "script"
 after_success:
-  - firebase deploy --project "recitation" --token "$FIREBASE_TOKEN" --only "hosting"
   - firebase deploy --project "book-express" --token "$FIREBASE_TOKEN" --only "hosting"
