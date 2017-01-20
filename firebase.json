@@ -1,6 +1,12 @@
 {
   "hosting": {
-    "public": ["bower_components", "src"],
+    "public": "src",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/gulp/**"
+    ],
     "rewrites": [
       {
         "source": "**",
