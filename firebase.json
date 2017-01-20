@@ -1,9 +1,11 @@
 {
-    "hosting": {
-        "public": ["bower_components", "dist", "src"],
-        "rewrites": [{
-            "source": "**",
-            "destination": "/index.html"
-        }]
-    }
+  "hosting": {
+    "public": ["bower_components", "src"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
 }
