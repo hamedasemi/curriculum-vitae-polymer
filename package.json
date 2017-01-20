@@ -1,99 +1,71 @@
 {
-  "name": "fortum-rost-web",
-  "version": "1.4.0-build.14",
-  "description": "Fortum ROST, a progressive web application.",
+  "name": "book-polymer",
+  "version": "0.0.0-build.0",
+  "description": "Book, a progressive web application.",
   "private": true,
-  "main": "server",
   "engines": {
     "node": ">=6.0.0"
   },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-3",
-      "stage-0"
-    ],
-    "plugins": [],
-    "sourceMaps": "inline"
-  },
   "scripts": {
-    "platform:init": "./platform/google-cloud-sdk/bin/gcloud init",
-    "preversion": "npm run gulp build",
-    "postversion": "git push && git push --tags",
-    "predeploy": "npm version prerelease -m 'Bumped to %s' --git-tag-version=true",
-    "deploy": "VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",.,-]//g') && VERSION=$(printf 'v%s'$VERSION) && gcloud app deploy ./platform.yaml --project=fortum-rost-web --version=$VERSION --no-promote",
-    "gcloud": "./platform/google-cloud-sdk/bin/gcloud",
-    "start": "ENV=$ENV npm run serve",
+    "release": "npm version prerelease -m 'Bumped to %s' --git-tag-version=true",
+    "postrelease": "git push && git push --tags",
+    "deploy": "echo deploy",
     "serve": "firebase serve --port=8080",
     "sync": "browser-sync start --port 8081 --proxy 'http://localhost:8080' --logLevel debug --files './www' --open 'external'",
-    "inittt": "browser-sync init",
-    "clean": "rm -r www",
-    "stop": "killall node | exit 0",
+    "clean": "rm -r dist",
     "gulp": "gulp --require babel-register --gulpfile=./gulp/gulp.js --cwd=./",
-    "test:app": "wct --local=chrome app/**/*.spec.html",
-    "test:server": "mocha --compilers js:babel-register ./server/**/*.test.js",
-    "test": "npm run test:server && npm run test:app"
+    "test": "mocha --compilers js:babel-register ./server/**/*.test.js"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-es2017": "^6.16.0",
     "babel-register": "^6.7.2",
-    "body-parser": "^1.15.0",
     "browser-sync": "^2.18.5",
     "css-mqpacker": "^5.0.1",
-    "express": "^4.14.0",
     "gulp-polymer-babel": "^1.0.1",
     "gulp-postcss": "^6.2.0",
-    "morgan": "^1.7.0",
     "postcss-apply": "^0.4.0",
     "postcss-custom-media": "^5.0.1",
     "postcss-custom-properties": "^5.0.1",
     "postcss-nested": "^1.0.0",
-    "serve-static": "^1.10.2",
     "vinyl-source-stream": "^1.1.0",
     "webrew": "0.0.26",
-    "webrew-helpers-log": "0.0.7"
-  },
-  "devDependencies": {
+    "webrew-helpers-log": "0.0.7",
     "autoprefixer": "^6.3.6",
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.20.0",
-    "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-preset-stage-3": "^6.17.0",
-    "babel-register": "^6.18.0",
     "babel-root-import": "^4.1.5",
-    "browser-sync": "^2.12.5",
     "chai": "^3.5.0",
     "chalk": "^1.1.3",
     "del": "^2.2.0",
     "eslint": "^3.12.2",
-    "google-cloud": "^0.38.3",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-babel": "^6.1.2",
     "gulp-cli": "^1.2.1",
     "gulp-font": "^1.0.3",
     "gulp-newer": "^1.1.0",
-    "gulp-polymer-babel": "^1.0.0",
     "gulp-polymer-postcss": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "mocha": "^3.2.0",
-    "stream-combiner2": "^1.1.1",
-    "web-component-tester": "^5.0.0"
+    "stream-combiner2": "^1.1.1"
+  },
+  "devDependencies": {
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/apegroup/fortum-rost-frontend.git"
+    "url": "git+ssh://git@github.com:hamedasemi/book-polymer.git"
   },
-  "author": "Aesthetically Pleasing Electronics",
+  "author": "Hamed Asemi",
   "contributors": [
     {
       "name": "Hamed Asemi",
-      "email": "hamed.asemi@apegroup.com"
+      "email": "h-@live.se"
     }
   ],
-  "license": "Aesthetically Pleasing Electronics © 2016 All rights reserved.",
-  "homepage": "https://bitbucket.org/apegroup/fortum-rost-frontend#readme"
+  "license": "Hamed Asemi © 2017 All rights reserved.",
+  "homepage": "https://github.com/hamedasemi/book-polymer/blob/mainline/README.md"
 }
