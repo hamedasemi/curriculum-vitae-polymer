@@ -11,7 +11,7 @@
     "postrelease": "git push && git push --tags",
     "deploy": "echo deploy",
     "serve": "firebase serve --port=8080",
-    "sync": "browser-sync start --port 8081 --proxy 'http://localhost:8080' --logLevel debug --files './www' --open 'external'",
+    "sync": "browser-sync start --port 8081 --proxy 'http://localhost:8080' --logLevel debug --files './src' --open 'external'",
     "clean": "rm -r dist",
     "gulp": "gulp --require babel-register --gulpfile=./gulp/gulp.js --cwd=./",
     "test": "mocha --compilers js:babel-register ./server/**/*.test.js"
