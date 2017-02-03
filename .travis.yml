@@ -12,4 +12,4 @@ before_script:
 script:
   - echo "script"
 after_success:
-  - firebase deploy --project "hamed-curriculum-vitae" --token "$FIREBASE_TOKEN" --only "hosting" --debug
+  - firebase deploy --project "hamed-curriculum-vitae" --token "$FIREBASE_TOKEN" --only "hosting" --debug --public src,an
