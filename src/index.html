@@ -17,32 +17,92 @@
     </script>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="/bower_components/polymer/polymer.html">
+    <script src="/bower_components/ua-parser-js/dist/ua-parser.min.js"></script>
     <link rel="import" href="/web-application/web-application.html">
+    <script>
+        window.addEventListener('HTMLImportsLoaded', function(e) {
+            // all imports loaded
+            document.body.setAttribute('status', 'loading')
+        });
+    </script>
+    <script>
+
+
+    let baseline = 24
+    window.onresize = reponsive
+    window.onload = reponsive
+            var result = UAParser(navigator.userAgent);
+
+        console.log(result.browser.name)
+        console.log(result.version)
+        console.log(result.os)
+        console.log(result.platform)
+
+    function reponsive(event) {
+
+        event.stopPropagation()
+        if (window.innerWidth > baseline * 10) { document.body.parentNode.setAttribute('screen', 'xx-small') }
+        if (window.innerWidth > baseline * 20) { document.body.parentNode.setAttribute('screen', 'x-small') }
+        if (window.innerWidth > baseline * 30) { document.body.parentNode.setAttribute('screen', 'small') }
+        if (window.innerWidth > baseline * 40) { document.body.parentNode.setAttribute('screen', 'medium') }
+        if (window.innerWidth > baseline * 50) { document.body.parentNode.setAttribute('screen', 'large') }
+        if (window.innerWidth > baseline * 60) { document.body.parentNode.setAttribute('screen', 'x-large') }
+        if (window.innerWidth > baseline * 80) { document.body.parentNode.setAttribute('screen', 'xx-large') }
+
+
+        document.body.parentNode.setAttribute('browser', result.browser.name.toLowerCase())
+
+        return false
+    }
+    </script>
+    <script>
+        window.addEventListener('HTMLImportsLoaded', function(e) {
+            // all imports loaded
+            setTimeout(function() {
+                document.body.parentNode.setAttribute('status', 'loaded')
+            }, 2000);
+        });
+    </script>
+    <script>
+        window.addEventListener('WebComponentsReady', function(e) {
+            // imports are loaded and elements have been registered
+            setTimeout(function() {
+                document.body.parentNode.setAttribute('status', 'ready')
+            }, 3000);
+            setTimeout(function() {
+                document.body.parentNode.setAttribute('status', 'go')
+            }, 5000);
+        });
+
+    </script>
     <style>
         html {
             max-width: 800px;
             margin: 0 auto;
             padding: 0;
-            font-size: 62.5%;
+
             height: 100%;
             background: #080808;
             color: #4F4F4F;
         }
 
-        html[xx-small] {
+        html[screen=xx-small] {
+            font-size: 52.5%;
+        }
+
+        html[screen=small], html[screen=x-small] {
+            font-size: 55.5%;
+        }
+
+        html[screen=medium] {
             font-size: 62.5%;
         }
 
-        html[small] {
-            font-size: 62.5%;
-        }
-
-        html[medium] {
-            font-size: 62.5%;
-        }
-
-        html[x-large] {
+        html[screen=large], html[screen=x-large] {
             font-size: 80%;
+        }
+        html[screen=xx-large] {
+            font-size: 90%;
         }
 
         body {
