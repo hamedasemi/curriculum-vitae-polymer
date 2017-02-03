@@ -10,36 +10,36 @@
     <link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32">
     <script>
-        window.performance && performance.mark && performance.mark(`app-load-start`);
+        window.performance && performance.mark && performance.mark(`app-load-start`)
         window.Polymer = {
             dom: 'shady'
-        };
+        }
     </script>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="/bower_components/polymer/polymer.html">
     <script src="/bower_components/ua-parser-js/dist/ua-parser.min.js"></script>
+    <link rel="import" href="/bower_components/polymer/polymer.html">
     <link rel="import" href="/web-application/web-application.html">
     <script>
         window.addEventListener('HTMLImportsLoaded', function(e) {
             // all imports loaded
             document.body.setAttribute('status', 'loading')
-        });
+        })
     </script>
     <script>
 
 
     let baseline = 24
     window.onresize = reponsive
-    window.onload = reponsive
-            var result = UAParser(navigator.userAgent);
 
-        console.log(result.browser.name)
-        console.log(result.version)
-        console.log(result.os)
-        console.log(result.platform)
+    window.onload = reponsive
+    let result = UAParser(navigator.userAgent);
+
+    console.log(result.browser.name)
+    console.log(result.version)
+    console.log(result.os)
+    console.log(result.platform)
 
     function reponsive(event) {
-
         event.stopPropagation()
         if (window.innerWidth > baseline * 10) { document.body.parentNode.setAttribute('screen', 'xx-small') }
         if (window.innerWidth > baseline * 20) { document.body.parentNode.setAttribute('screen', 'x-small') }
@@ -48,67 +48,68 @@
         if (window.innerWidth > baseline * 50) { document.body.parentNode.setAttribute('screen', 'large') }
         if (window.innerWidth > baseline * 60) { document.body.parentNode.setAttribute('screen', 'x-large') }
         if (window.innerWidth > baseline * 80) { document.body.parentNode.setAttribute('screen', 'xx-large') }
-
-
         document.body.parentNode.setAttribute('browser', result.browser.name.toLowerCase())
-
         return false
     }
     </script>
     <script>
         window.addEventListener('HTMLImportsLoaded', function(e) {
             // all imports loaded
+
             setTimeout(function() {
                 document.body.parentNode.setAttribute('status', 'loaded')
+                window.scrollTo(0, 0)
             }, 2000);
         });
     </script>
     <script>
         window.addEventListener('WebComponentsReady', function(e) {
+
             // imports are loaded and elements have been registered
             setTimeout(function() {
                 document.body.parentNode.setAttribute('status', 'ready')
             }, 3000);
             setTimeout(function() {
                 document.body.parentNode.setAttribute('status', 'go')
+                setTimeout(function() {
+                    document.body.parentNode.setAttribute('status', 'done')
+                }, 1000);
             }, 5000);
         });
 
     </script>
     <style>
         html {
-            max-width: 800px;
+            max-width: 60rem;
             margin: 0 auto;
-            padding: 0;
-
             height: 100%;
             background: #080808;
             color: #4F4F4F;
         }
 
-        html[screen=xx-small] {
+        [screen=xx-small] {
             font-size: 52.5%;
         }
 
-        html[screen=small], html[screen=x-small] {
+        [screen=small], [screen=x-small] {
             font-size: 55.5%;
         }
 
-        html[screen=medium] {
+        [screen=medium] {
             font-size: 62.5%;
         }
 
-        html[screen=large], html[screen=x-large] {
+        [screen=large], [screen=x-large] {
             font-size: 80%;
         }
-        html[screen=xx-large] {
+        [screen=xx-large] {
             font-size: 90%;
         }
 
         body {
+            /*overflow: hidden;*/
             margin: 0;
             height: 100%;
-            min-width: 300px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
@@ -116,7 +117,7 @@
         }
 
         ::selection {
-            background-color: #def3e5;
+            background-color: gray;
         }
 
         [generation~="modern"] nosupport {
@@ -132,12 +133,24 @@
         }
 
         web-application {
-            /*display: none;*/
-            animation: 1s fadeIn 12s backwards;
+            opacity: 0;
+            /*visibility: hidden;*/
             display: flex;
             align-items: center;
             justify-content: center;
             perspective: 400px;
+            overflow: hidden;
+        }
+
+        [status=done]{
+            overflow: auto;
+        }
+
+        [status=go] web-application{
+            animation: 1s fadeIn forwards;
+        }
+        [status=done] web-application{
+            opacity: 1;
         }
 
         app-loader {
@@ -237,6 +250,9 @@
             from {
                 opacity: 0;
             }
+            to {
+                opacity: 1;
+            }
         }
 
         greeting-text {
@@ -247,21 +263,30 @@
         greeting-text text {
             position: absolute;
             opacity: 0;
-            animation: 6s type both;
+
         }
 
-        greeting-text text:nth-of-type(1) {
-            animation-delay: 1s;
+        [status=loaded] greeting-text text:nth-of-type(1) {
+            animation: 1s fadeIn;
         }
 
-        greeting-text text:nth-of-type(2) {
-            animation-delay: 7s;
+        [status=ready] greeting-text text:nth-of-type(2) {
+            animation: 1s fadeIn;
+        }
+        greeting-text hi{
+            opacity: 0;
         }
 
-        greeting-text hi {
+        [status=ready] greeting-text hi {
             color: #C4C4C4;
             font-size: 6rem;
-            animation: 12s type both;
+            animation: 1s fadeIn backwards;
+        }
+
+
+        [status=loaded] greeting-text hi,
+        [status=loading] greeting-text hi {
+            opacity: 1;
         }
 
         spinner-text {
@@ -271,7 +296,6 @@
         }
 
         main-context {
-            /*padding: 4rem;*/
             font-size: 1.8rem
         }
 
@@ -308,8 +332,8 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            transform: skewX(11deg) rotateX(4deg);
-            background: #101010;
+            /*transform: skewX(11deg) rotateX(4deg);*/
+            /*background: #101010;*/
             opacity: .8;
             margin-top: 4rem;
         }
@@ -333,6 +357,34 @@
             color: #A1A1A1;
         }
 
+        desc-item {
+            display: flex;
+            flex-direction: row;
+            flex-basis: 50%;
+        }
+
+        desc-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+
+        desc-item {
+            margin-top: 4rem;
+        }
+
+        desc-title {
+            margin-right: 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        desc-description {
+            font-size: 1rem;
+            color: #A1A1A1;
+        }
+
         x-abstract {
             margin-top: 8rem;
             display: block;
@@ -342,30 +394,8 @@
 
 <body generation="modern">
 
-    <noscript>
-        <h1>Din webbläsare stödjer ej javascript :(</h1>
-        <p>Som tur är finns vi tillgängliga dygnet runt, vi besvarar gärna ditt ärende på numret nedan.</p>
-        <contact-container>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 15 31" width="42" height="42">
-                <g stroke="none" stroke-width="1" fill-rule="evenodd">
-                    <path class="path1" d="M0,1.99821383 C0,0.894630804 0.893397331,0 1.99188419,0 L13.0081158,0 C14.1082031,0 15,0.894337654 15,1.99821383 L15,29.0017862 C15,30.1053692 14.1066027,31 13.0081158,31 L1.99188419,31 C0.891796927,31 0,30.1056623 0,29.0017862 L0,1.99821383 Z M1,5 L14,5 L14,24 L1,24 L1 5 Z M7.5,29 C8.32842712,29 9,28.3284271 9,27.5 C9,26.6715729 8.32842712,26 7.5,26 C6.67157288,26 6,26.6715729 6,27.5 C6,28.3284271 6.67157288,29 7.5,29 Z"></path>
-                </g>
-            </svg>
-            <a href="tel:020460000">020 - 46 00 00</a>
-        </contact-container>
-    </noscript>
-    <nosupport>
-        <h1>Din webbläsare är gammal!</h1>
-        <p>Som tur är finns vi tillgängliga dygnet runt, vi besvarar gärna ditt ärende på numret nedan.</p>
-        <contact-container>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 15 31" width="42" height="42">
-                <g stroke="none" stroke-width="1" fill-rule="evenodd">
-                    <path class="path1" d="M0,1.99821383 C0,0.894630804 0.893397331,0 1.99188419,0 L13.0081158,0 C14.1082031,0 15,0.894337654 15,1.99821383 L15,29.0017862 C15,30.1053692 14.1066027,31 13.0081158,31 L1.99188419,31 C0.891796927,31 0,30.1056623 0,29.0017862 L0,1.99821383 Z M1,5 L14,5 L14,24 L1,24 L1 5 Z M7.5,29 C8.32842712,29 9,28.3284271 9,27.5 C9,26.6715729 8.32842712,26 7.5,26 C6.67157288,26 6,26.6715729 6,27.5 C6,28.3284271 6.67157288,29 7.5,29 Z"></path>
-                </g>
-            </svg>
-            <a href="tel:020460000">020 - 46 00 00</a>
-        </contact-container>
-    </nosupport>
+    <noscript>Din webbläsare stödjer ej javascript :(</noscript>
+    <nosupport>Din webbläsare är gammal!</nosupport>
     <web-application>
         <header slot="header">WEB EVANGELIST.</header>
     </web-application>
@@ -423,43 +453,46 @@
             </overview-item>
         </overview-list>
 
-        <header>Tech & Skills.</header>
+        <header>Experiences.</header>
 
-        <x-abstract margin-top>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit quae doloribus possimus, neque veniam commodi voluptatum
-            pariatur aut obcaecati ea accusantium, ratione animi, molestiae deleniti aliquid, asperiores eius sapiente? Earum?</x-abstract>
-        <overview-list margin-top>
-            <overview-item>
-                <overview-title>Lorem.</overview-title>
-                <overview-description>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam nisi officia repellendus maxime, eligendi
-                    recusandae neque voluptas aperiam quis velit!</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Temporibus!</overview-title>
-                <overview-description>Quibusdam ipsa eum accusantium cumque quidem facere ducimus. Praesentium corporis esse illum expedita, sequi
-                    nisi sapiente. Sapiente numquam doloremque, quae?</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Quos?</overview-title>
-                <overview-description>Quia quae minima deleniti, dolor similique eius nesciunt quod, repudiandae in iusto rem obcaecati, quaerat
-                    sint impedit cumque? Doloribus, quibusdam.</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Impedit?</overview-title>
-                <overview-description>Aut non maxime, repellendus vitae est minima, cumque architecto enim ullam nisi ratione aperiam modi saepe
-                    minus? Laborum dicta, libero.</overview-description>
-            </overview-item>
-        </overview-list>
+        <desc-list margin-top>
+            <desc-item>
+                <desc-title>Lorem.</desc-title>
+                <desc-description>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam nisi officia repellendus maxime, eligendi
+                    recusandae neque voluptas aperiam quis velit!</desc-description>
+            </desc-item>
+            <desc-item>
+                <desc-title>Temporibus!</desc-title>
+                <desc-description>Quibusdam ipsa eum accusantium cumque quidem facere ducimus. Praesentium corporis esse illum expedita, sequi
+                    nisi sapiente. Sapiente numquam doloremque, quae?</desc-description>
+            </desc-item>
+            <desc-item>
+                <desc-title>Quos?</desc-title>
+                <desc-description>Quia quae minima deleniti, dolor similique eius nesciunt quod, repudiandae in iusto rem obcaecati, quaerat
+                    sint impedit cumque? Doloribus, quibusdam.</desc-description>
+            </desc-item>
+            <desc-item>
+                <desc-title>Impedit?</desc-title>
+                <desc-description>Aut non maxime, repellendus vitae est minima, cumque architecto enim ullam nisi ratione aperiam modi saepe
+                    minus? Laborum dicta, libero.</desc-description>
+            </desc-item>
+            <desc-item>
+                <desc-title>Lorem.</desc-title>
+                <desc-description>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam nisi officia repellendus maxime, eligendi
+                    recusandae neque voluptas aperiam quis velit!</desc-description>
+            </desc-item>
+        </desc-list>
 
     </main-context>
     <app-loader>
-        <!--<spinner>
-        <svg width="74px" height="52px" viewBox="0 0 74 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <spinner>
+        <!--<svg width="74px" height="52px" viewBox="0 0 74 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="CV-Style-Guide" transform="translate(-877.000000, -1439.000000)" stroke="#FFFFFF" stroke-width="0.5">
                     <path d="M921.137607,1490 L892.379863,1440 L906.759725,1440 L935.517469,1490 L921.137607,1490 Z M942.706268,1477.5 L921.137606,1440 L935.517469,1440 L949.897331,1465 L942.706551,1477.5 L942.706268,1477.5 Z M878,1465 L885.19078,1452.5 L906.759442,1490 L892.37958,1490 L878,1465 Z M921.137607,1490 L928.326689,1477.5 L935.517469,1490 L921.137607,1490 L921.137607,1490 L921.137607,1490 Z M913.948524,1477.5 L921.137607,1490 L928.326689,1477.5 L913.948807,1477.5 L913.948524,1477.5 L913.948524,1477.5 L913.948524,1477.5 Z M906.759442,1465 L913.948524,1477.5 L921.137607,1465 L906.759725,1465 L906.759442,1465 L906.759442,1465 L906.759442,1465 Z M928.375762,1452.64782 L935.564845,1465.14782 L942.753927,1452.64782 L928.376046,1452.64782 L928.375762,1452.64782 L928.375762,1452.64782 L928.375762,1452.64782 Z M906.759442,1465 L913.948524,1452.5 L921.137607,1465 L906.759725,1465 L906.759442,1465 L906.759442,1465 L906.759442,1465 Z M899.570643,1452.5 L906.759725,1465 L913.948807,1452.5 L899.570926,1452.5 L899.570643,1452.5 L899.570643,1452.5 L899.570643,1452.5 Z M899.570643,1452.5 L906.759725,1440 L913.948807,1452.5 L899.570926,1452.5 L899.570643,1452.5 L899.570643,1452.5 L899.570643,1452.5 Z M892.379863,1440 L899.570643,1452.5 L906.759725,1440 L892.379863,1440 L892.379863,1440 L892.379863,1440 Z M892.379863,1490 L899.570643,1477.5 L906.759725,1490 L892.379863,1490 L892.379863,1490 L892.379863,1490 Z M885.19078,1477.5 L892.379863,1490 L899.570643,1477.5 L885.19078,1477.5 L885.19078,1477.5 L885.19078,1477.5 Z M885.19078,1477.5 L892.379863,1465 L899.570643,1477.5 L885.19078,1477.5 L885.19078,1477.5 L885.19078,1477.5 Z M878,1465 L885.19078,1477.5 L892.379863,1465 L878,1465 L878,1465 L878,1465 Z M878,1465 L885.19078,1452.5 L892.379863,1465 L878,1465 L878,1465 L878,1465 Z M892.379863,1465 L885.19078,1452.5 L892.379863,1440 L899.570643,1452.5 L892.379863,1465 L892.379863,1465 L892.379863,1465 Z M899.570643,1452.5 L892.379863,1440 L885.19078,1452.5 L899.570643,1452.5 L899.570643,1452.5 L899.570643,1452.5 Z M935.517186,1490 L928.326406,1477.5 L935.517186,1465 L942.706268,1477.5 L935.517186,1490 L935.517186,1490 L935.517186,1490 Z M942.706268,1477.5 L935.517186,1490 L928.326406,1477.5 L942.706268,1477.5 L942.706268,1477.5 L942.706268,1477.5 Z M935.517186,1465 L942.706268,1477.5 L949.897048,1465 L935.517186,1465 L935.517186,1465 L935.517186,1465 Z M935.517186,1465 L942.706268,1452.5 L949.897048,1465 L935.517186,1465 L935.517186,1465 L935.517186,1465 Z M928.326406,1452.5 L935.517186,1440 L942.706268,1452.5 L928.326406,1452.5 L928.326406,1452.5 L928.326406,1452.5 Z M921.137606,1440 L928.326689,1452.5 L935.517469,1440 L921.137606,1440 L921.137606,1440 L921.137606,1440 Z"
                         id="Combined-Shape"></path>
                 </g>
-            </svg>
-    </spinner>-->
+            </svg>-->
+    </spinner>
         <greeting-text>
             <hi>Hi</hi>
             <spinner-text>
