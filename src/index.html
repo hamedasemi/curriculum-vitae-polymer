@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Teckna elavtal och se aktuella elpriser | fortum.se</title>
+    <title>CV</title>
     <base href="/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,79 +10,22 @@
     <link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32">
     <script>
-        window.performance && performance.mark && performance.mark(`app-load-start`)
+        window.performance && performance.mark && performance.mark(`index.html`)
         window.Polymer = {
-            dom: 'shady'
+            dom: 'shadow'
         }
     </script>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="/bower_components/ua-parser-js/dist/ua-parser.min.js"></script>
     <link rel="import" href="/bower_components/polymer/polymer.html">
-    <link rel="import" href="/web-application/web-application.html">
-    <script>
-        window.addEventListener('HTMLImportsLoaded', function(e) {
-            // all imports loaded
-            document.body.setAttribute('status', 'loading')
-        })
-    </script>
-    <script>
+    <link rel="import" href="/app/app.html">
 
-
-    let baseline = 24
-    window.onresize = reponsive
-
-    window.onload = reponsive
-    let result = UAParser(navigator.userAgent);
-
-    console.log(result.browser.name)
-    console.log(result.version)
-    console.log(result.os)
-    console.log(result.platform)
-
-    function reponsive(event) {
-        event.stopPropagation()
-        if (window.innerWidth > baseline * 10) { document.body.parentNode.setAttribute('screen', 'xx-small') }
-        if (window.innerWidth > baseline * 20) { document.body.parentNode.setAttribute('screen', 'x-small') }
-        if (window.innerWidth > baseline * 30) { document.body.parentNode.setAttribute('screen', 'small') }
-        if (window.innerWidth > baseline * 40) { document.body.parentNode.setAttribute('screen', 'medium') }
-        if (window.innerWidth > baseline * 50) { document.body.parentNode.setAttribute('screen', 'large') }
-        if (window.innerWidth > baseline * 60) { document.body.parentNode.setAttribute('screen', 'x-large') }
-        if (window.innerWidth > baseline * 80) { document.body.parentNode.setAttribute('screen', 'xx-large') }
-        document.body.parentNode.setAttribute('browser', result.browser.name.toLowerCase())
-        return false
-    }
-    </script>
-    <script>
-        window.addEventListener('HTMLImportsLoaded', function(e) {
-            // all imports loaded
-
-            setTimeout(function() {
-                document.body.parentNode.setAttribute('status', 'loaded')
-                window.scrollTo(0, 0)
-            }, 2000);
-        });
-    </script>
-    <script>
-        window.addEventListener('WebComponentsReady', function(e) {
-
-            // imports are loaded and elements have been registered
-            setTimeout(function() {
-                document.body.parentNode.setAttribute('status', 'ready')
-            }, 3000);
-            setTimeout(function() {
-                document.body.parentNode.setAttribute('status', 'go')
-                setTimeout(function() {
-                    document.body.parentNode.setAttribute('status', 'done')
-                }, 1000);
-            }, 5000);
-        });
-
-    </script>
     <style>
         html {
             max-width: 60rem;
             margin: 0 auto;
             height: 100%;
+            transition: .7s background;
             background: #080808;
             color: #4F4F4F;
         }
@@ -91,7 +34,8 @@
             font-size: 52.5%;
         }
 
-        [screen=small], [screen=x-small] {
+        [screen=small],
+        [screen=x-small] {
             font-size: 55.5%;
         }
 
@@ -99,58 +43,23 @@
             font-size: 62.5%;
         }
 
-        [screen=large], [screen=x-large] {
+        [screen=large],
+        [screen=x-large] {
             font-size: 80%;
         }
+
         [screen=xx-large] {
             font-size: 90%;
         }
 
         body {
-            /*overflow: hidden;*/
             margin: 0;
             height: 100%;
             display: flex;
+            font-size: 2rem;
             flex-direction: column;
             flex-grow: 1;
             font-family: menlo;
-        }
-
-        ::selection {
-            background-color: gray;
-        }
-
-        [generation~="modern"] nosupport {
-            display: none;
-        }
-
-        body:not([loaded]) app-component {
-            display: none;
-        }
-
-        body[loaded] app-loader {
-            display: none;
-        }
-
-        web-application {
-            opacity: 0;
-            /*visibility: hidden;*/
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            perspective: 400px;
-            overflow: hidden;
-        }
-
-        [status=done]{
-            overflow: auto;
-        }
-
-        [status=go] web-application{
-            animation: 1s fadeIn forwards;
-        }
-        [status=done] web-application{
-            opacity: 1;
         }
 
         app-loader {
@@ -166,15 +75,11 @@
             justify-content: center;
         }
 
-        spinner {
-            display: flex;
-        }
-
-        spinner g {
+        loader-spinner[logo] path {
             stroke-dasharray: 2000;
             stroke-width: .5px;
             fill: transparent;
-            stroke: black;
+            stroke: gray;
             animation: dash 2s cubic-bezier(.26, .66, 1, .37) infinite;
         }
 
@@ -195,22 +100,10 @@
 
         noscript,
         nosupport {
-            position: absolute;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #fff;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1;
+            display: none;
         }
 
-        @keyframes loading {
+        @keyframes loaderSpinnerLine {
             0 {
                 transform: translateX(-20%);
                 width: 100%;
@@ -224,26 +117,13 @@
             }
         }
 
-        loader[linear] {
+        loader-spinner[line] {
             height: 1px;
-            width: 300px;
+            width: 30rem;
             box-sizing: border-box;
             position: relative;
             overflow: hidden;
             background-color: gray;
-        }
-
-        @keyframes type {
-            0% {
-                opacity: 0;
-            }
-            20%,
-            80% {
-                opacity: 1
-            }
-            100% {
-                opacity: 0;
-            }
         }
 
         @keyframes fadeIn {
@@ -255,253 +135,91 @@
             }
         }
 
-        greeting-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        greeting-text text {
-            position: absolute;
-            opacity: 0;
-
-        }
-
-        [status=loaded] greeting-text text:nth-of-type(1) {
-            animation: 1s fadeIn;
-        }
-
-        [status=ready] greeting-text text:nth-of-type(2) {
-            animation: 1s fadeIn;
-        }
-        greeting-text hi{
-            opacity: 0;
-        }
-
-        [status=ready] greeting-text hi {
-            color: #C4C4C4;
-            font-size: 6rem;
-            animation: 1s fadeIn backwards;
-        }
-
-
-        [status=loaded] greeting-text hi,
-        [status=loading] greeting-text hi {
-            opacity: 1;
-        }
-
-        spinner-text {
-            font-size: 1rem;
-            padding-left: .4rem;
-            color: #C4C4C4;
-        }
-
-        main-context {
-            font-size: 1.8rem
-        }
-
-        loader[linear]:before {
+        loader-spinner[line]:before {
             transform: translateX(-100%);
             display: block;
             position: absolute;
             content: "";
             left: 0;
-            width: 50%;
+            width: 60%;
             height: 100%;
             background-color: darkgray;
-            animation: loading 2s linear infinite;
-        }
-
-        overview-item {
-            display: flex;
-            flex-direction: row;
-            flex-basis: 50%;
-        }
-
-        overview-list {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-
-        header {
-            font-size: 6rem;
-            text-transform: uppercase;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            /*transform: skewX(11deg) rotateX(4deg);*/
-            /*background: #101010;*/
-            opacity: .8;
-            margin-top: 4rem;
-        }
-
-        [margin-top] {
-            margin-top: 4rem;
-        }
-
-        overview-item {
-            margin-top: 4rem;
-        }
-
-        overview-title {
-            margin-right: 2rem;
-            font-size: 1.6rem;
-            font-weight: bold;
-        }
-
-        overview-description {
-            font-size: 1.2rem;
-            color: #A1A1A1;
-        }
-
-        desc-item {
-            display: flex;
-            flex-direction: row;
-            flex-basis: 50%;
-        }
-
-        desc-list {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-
-
-        desc-item {
-            margin-top: 4rem;
-        }
-
-        desc-title {
-            margin-right: 2rem;
-            font-size: 1rem;
-            font-weight: bold;
-        }
-
-        desc-description {
-            font-size: 1rem;
-            color: #A1A1A1;
-        }
-
-        x-abstract {
-            margin-top: 8rem;
-            display: block;
+            animation: loaderSpinnerLine 2s linear infinite;
         }
     </style>
 </head>
 
 <body generation="modern">
+    <script>
+        window.addEventListener('HTMLImportsLoaded', function (e) {
+            // all imports loaded
+            document.body.setAttribute('status', 'loading')
+        })
+        let baseline = 24
+        window.onresize = reponsive
 
+        window.onload = reponsive
+        let result = UAParser(navigator.userAgent);
+
+        function reponsive() {
+            if (window.innerWidth > baseline * 10) { document.body.parentNode.setAttribute('screen', 'xx-small') }
+            if (window.innerWidth > baseline * 20) { document.body.parentNode.setAttribute('screen', 'x-small') }
+            if (window.innerWidth > baseline * 30) { document.body.parentNode.setAttribute('screen', 'small') }
+            if (window.innerWidth > baseline * 40) { document.body.parentNode.setAttribute('screen', 'medium') }
+            if (window.innerWidth > baseline * 50) { document.body.parentNode.setAttribute('screen', 'large') }
+            if (window.innerWidth > baseline * 60) { document.body.parentNode.setAttribute('screen', 'x-large') }
+            if (window.innerWidth > baseline * 80) { document.body.parentNode.setAttribute('screen', 'xx-large') }
+            document.body.parentNode.setAttribute('browser', result.browser.name.toLowerCase())
+            return false
+        }
+        reponsive()
+        window.addEventListener('HTMLImportsLoaded', function (e) {
+            // all imports loaded
+
+            setTimeout(function () {
+                document.body.parentNode.setAttribute('status', 'loaded')
+                window.scrollTo(0, 0)
+            }, 2000);
+        });
+        window.addEventListener('WebComponentsReady', function (e) {
+
+            // imports are loaded and elements have been registered
+            setTimeout(function () {
+                document.body.parentNode.setAttribute('status', 'ready')
+            }, 3000);
+            setTimeout(function () {
+                document.body.parentNode.setAttribute('status', 'go')
+                setTimeout(function () {
+                    document.body.parentNode.setAttribute('status', 'done')
+                }, 1000);
+            }, 5000);
+        });
+    </script>
     <noscript>Din webbläsare stödjer ej javascript :(</noscript>
     <nosupport>Din webbläsare är gammal!</nosupport>
-    <web-application>
-        <header slot="header">WEB EVANGELIST.</header>
-    </web-application>
-    <main-context>
+    <app-component>
+        <head-context>
+            <header slot="header">WEB EVANGELIST.</header>
+        </head-context>
+        <main-context>
 
-        <x-abstract margin-top>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit quae doloribus possimus, neque veniam commodi voluptatum
-            pariatur aut obcaecati ea accusantium, ratione animi, molestiae deleniti aliquid, asperiores eius sapiente? Earum?</x-abstract>
-        <overview-list margin-top>
-            <overview-item>
-                <overview-title>Lorem.</overview-title>
-                <overview-description>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam nisi officia repellendus maxime, eligendi
-                    recusandae neque voluptas aperiam quis velit!</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Temporibus!</overview-title>
-                <overview-description>Quibusdam ipsa eum accusantium cumque quidem facere ducimus. Praesentium corporis esse illum expedita, sequi
-                    nisi sapiente. Sapiente numquam doloremque, quae?</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Quos?</overview-title>
-                <overview-description>Quia quae minima deleniti, dolor similique eius nesciunt quod, repudiandae in iusto rem obcaecati, quaerat
-                    sint impedit cumque? Doloribus, quibusdam.</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Impedit?</overview-title>
-                <overview-description>Aut non maxime, repellendus vitae est minima, cumque architecto enim ullam nisi ratione aperiam modi saepe
-                    minus? Laborum dicta, libero.</overview-description>
-            </overview-item>
-        </overview-list>
+        </main-context>
+    </app-component>
 
-        <header>Tech & Skills.</header>
-
-        <x-abstract margin-top>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit quae doloribus possimus, neque veniam commodi voluptatum
-            pariatur aut obcaecati ea accusantium, ratione animi, molestiae deleniti aliquid, asperiores eius sapiente? Earum?</x-abstract>
-        <overview-list margin-top>
-            <overview-item>
-                <overview-title>Lorem.</overview-title>
-                <overview-description>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam nisi officia repellendus maxime, eligendi
-                    recusandae neque voluptas aperiam quis velit!</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Temporibus!</overview-title>
-                <overview-description>Quibusdam ipsa eum accusantium cumque quidem facere ducimus. Praesentium corporis esse illum expedita, sequi
-                    nisi sapiente. Sapiente numquam doloremque, quae?</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Quos?</overview-title>
-                <overview-description>Quia quae minima deleniti, dolor similique eius nesciunt quod, repudiandae in iusto rem obcaecati, quaerat
-                    sint impedit cumque? Doloribus, quibusdam.</overview-description>
-            </overview-item>
-            <overview-item>
-                <overview-title>Impedit?</overview-title>
-                <overview-description>Aut non maxime, repellendus vitae est minima, cumque architecto enim ullam nisi ratione aperiam modi saepe
-                    minus? Laborum dicta, libero.</overview-description>
-            </overview-item>
-        </overview-list>
-
-        <header>Experiences.</header>
-
-        <desc-list margin-top>
-            <desc-item>
-                <desc-title>Lorem.</desc-title>
-                <desc-description>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam nisi officia repellendus maxime, eligendi
-                    recusandae neque voluptas aperiam quis velit!</desc-description>
-            </desc-item>
-            <desc-item>
-                <desc-title>Temporibus!</desc-title>
-                <desc-description>Quibusdam ipsa eum accusantium cumque quidem facere ducimus. Praesentium corporis esse illum expedita, sequi
-                    nisi sapiente. Sapiente numquam doloremque, quae?</desc-description>
-            </desc-item>
-            <desc-item>
-                <desc-title>Quos?</desc-title>
-                <desc-description>Quia quae minima deleniti, dolor similique eius nesciunt quod, repudiandae in iusto rem obcaecati, quaerat
-                    sint impedit cumque? Doloribus, quibusdam.</desc-description>
-            </desc-item>
-            <desc-item>
-                <desc-title>Impedit?</desc-title>
-                <desc-description>Aut non maxime, repellendus vitae est minima, cumque architecto enim ullam nisi ratione aperiam modi saepe
-                    minus? Laborum dicta, libero.</desc-description>
-            </desc-item>
-            <desc-item>
-                <desc-title>Lorem.</desc-title>
-                <desc-description>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam nisi officia repellendus maxime, eligendi
-                    recusandae neque voluptas aperiam quis velit!</desc-description>
-            </desc-item>
-        </desc-list>
-
-    </main-context>
     <app-loader>
-        <spinner>
-        <!--<svg width="74px" height="52px" viewBox="0 0 74 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="CV-Style-Guide" transform="translate(-877.000000, -1439.000000)" stroke="#FFFFFF" stroke-width="0.5">
-                    <path d="M921.137607,1490 L892.379863,1440 L906.759725,1440 L935.517469,1490 L921.137607,1490 Z M942.706268,1477.5 L921.137606,1440 L935.517469,1440 L949.897331,1465 L942.706551,1477.5 L942.706268,1477.5 Z M878,1465 L885.19078,1452.5 L906.759442,1490 L892.37958,1490 L878,1465 Z M921.137607,1490 L928.326689,1477.5 L935.517469,1490 L921.137607,1490 L921.137607,1490 L921.137607,1490 Z M913.948524,1477.5 L921.137607,1490 L928.326689,1477.5 L913.948807,1477.5 L913.948524,1477.5 L913.948524,1477.5 L913.948524,1477.5 Z M906.759442,1465 L913.948524,1477.5 L921.137607,1465 L906.759725,1465 L906.759442,1465 L906.759442,1465 L906.759442,1465 Z M928.375762,1452.64782 L935.564845,1465.14782 L942.753927,1452.64782 L928.376046,1452.64782 L928.375762,1452.64782 L928.375762,1452.64782 L928.375762,1452.64782 Z M906.759442,1465 L913.948524,1452.5 L921.137607,1465 L906.759725,1465 L906.759442,1465 L906.759442,1465 L906.759442,1465 Z M899.570643,1452.5 L906.759725,1465 L913.948807,1452.5 L899.570926,1452.5 L899.570643,1452.5 L899.570643,1452.5 L899.570643,1452.5 Z M899.570643,1452.5 L906.759725,1440 L913.948807,1452.5 L899.570926,1452.5 L899.570643,1452.5 L899.570643,1452.5 L899.570643,1452.5 Z M892.379863,1440 L899.570643,1452.5 L906.759725,1440 L892.379863,1440 L892.379863,1440 L892.379863,1440 Z M892.379863,1490 L899.570643,1477.5 L906.759725,1490 L892.379863,1490 L892.379863,1490 L892.379863,1490 Z M885.19078,1477.5 L892.379863,1490 L899.570643,1477.5 L885.19078,1477.5 L885.19078,1477.5 L885.19078,1477.5 Z M885.19078,1477.5 L892.379863,1465 L899.570643,1477.5 L885.19078,1477.5 L885.19078,1477.5 L885.19078,1477.5 Z M878,1465 L885.19078,1477.5 L892.379863,1465 L878,1465 L878,1465 L878,1465 Z M878,1465 L885.19078,1452.5 L892.379863,1465 L878,1465 L878,1465 L878,1465 Z M892.379863,1465 L885.19078,1452.5 L892.379863,1440 L899.570643,1452.5 L892.379863,1465 L892.379863,1465 L892.379863,1465 Z M899.570643,1452.5 L892.379863,1440 L885.19078,1452.5 L899.570643,1452.5 L899.570643,1452.5 L899.570643,1452.5 Z M935.517186,1490 L928.326406,1477.5 L935.517186,1465 L942.706268,1477.5 L935.517186,1490 L935.517186,1490 L935.517186,1490 Z M942.706268,1477.5 L935.517186,1490 L928.326406,1477.5 L942.706268,1477.5 L942.706268,1477.5 L942.706268,1477.5 Z M935.517186,1465 L942.706268,1477.5 L949.897048,1465 L935.517186,1465 L935.517186,1465 L935.517186,1465 Z M935.517186,1465 L942.706268,1452.5 L949.897048,1465 L935.517186,1465 L935.517186,1465 L935.517186,1465 Z M928.326406,1452.5 L935.517186,1440 L942.706268,1452.5 L928.326406,1452.5 L928.326406,1452.5 L928.326406,1452.5 Z M921.137606,1440 L928.326689,1452.5 L935.517469,1440 L921.137606,1440 L921.137606,1440 L921.137606,1440 Z"
-                        id="Combined-Shape"></path>
-                </g>
-            </svg>-->
-    </spinner>
-        <greeting-text>
-            <hi>Hi</hi>
-            <spinner-text>
-                <text>Please wait!</text>
-                <text>things are getting ready!</text>
-            </spinner-text>
-        </greeting-text>
-
-        <!--<loader linear></loader>-->
+        <loader-spinner logo>
+            <svg width="74px" height="52px" viewBox="0 0 74 52" version="1.1">
+                <path stroke="#000000" stroke-width="0.5" d="M44.137607,51 L15.379863,1 L29.759725,1 L58.517469,51 L44.137607,51 Z M65.706268,38.5 L44.137606,1 L58.517469,1 L72.897331,26 L65.706551,38.5 L65.706268,38.5 Z M1,26 L8.19078,13.5 L29.759442,51 L15.37958,51 L1,26 Z M44.137607,51 L51.326689,38.5 L58.517469,51 L44.137607,51 L44.137607,51 L44.137607,51 Z M36.948524,38.5 L44.137607,51 L51.326689,38.5 L36.948807,38.5 L36.948524,38.5 L36.948524,38.5 L36.948524,38.5 Z M29.759442,26 L36.948524,38.5 L44.137607,26 L29.759725,26 L29.759442,26 L29.759442,26 L29.759442,26 Z M51.375762,13.64782 L58.564845,26.14782 L65.753927,13.64782 L51.376046,13.64782 L51.375762,13.64782 L51.375762,13.64782 L51.375762,13.64782 Z M29.759442,26 L36.948524,13.5 L44.137607,26 L29.759725,26 L29.759442,26 L29.759442,26 L29.759442,26 Z M22.570643,13.5 L29.759725,26 L36.948807,13.5 L22.570926,13.5 L22.570643,13.5 L22.570643,13.5 L22.570643,13.5 Z M22.570643,13.5 L29.759725,1 L36.948807,13.5 L22.570926,13.5 L22.570643,13.5 L22.570643,13.5 L22.570643,13.5 Z M15.379863,1 L22.570643,13.5 L29.759725,1 L15.379863,1 L15.379863,1 L15.379863,1 Z M15.379863,51 L22.570643,38.5 L29.759725,51 L15.379863,51 L15.379863,51 L15.379863,51 Z M8.19078,38.5 L15.379863,51 L22.570643,38.5 L8.19078,38.5 L8.19078,38.5 L8.19078,38.5 Z M8.19078,38.5 L15.379863,26 L22.570643,38.5 L8.19078,38.5 L8.19078,38.5 L8.19078,38.5 Z M1,26 L8.19078,38.5 L15.379863,26 L1,26 L1,26 L1,26 Z M1,26 L8.19078,13.5 L15.379863,26 L1,26 L1,26 L1,26 Z M15.379863,26 L8.19078,13.5 L15.379863,1 L22.570643,13.5 L15.379863,26 L15.379863,26 L15.379863,26 Z M22.570643,13.5 L15.379863,1 L8.19078,13.5 L22.570643,13.5 L22.570643,13.5 L22.570643,13.5 Z M58.517186,51 L51.326406,38.5 L58.517186,26 L65.706268,38.5 L58.517186,51 L58.517186,51 L58.517186,51 Z M65.706268,38.5 L58.517186,51 L51.326406,38.5 L65.706268,38.5 L65.706268,38.5 L65.706268,38.5 Z M58.517186,26 L65.706268,38.5 L72.897048,26 L58.517186,26 L58.517186,26 L58.517186,26 Z M58.517186,26 L65.706268,13.5 L72.897048,26 L58.517186,26 L58.517186,26 L58.517186,26 Z M51.326406,13.5 L58.517186,1 L65.706268,13.5 L51.326406,13.5 L51.326406,13.5 L51.326406,13.5 Z M44.137606,1 L51.326689,13.5 L58.517469,1 L44.137606,1 L44.137606,1 L44.137606,1 Z"></path>
+            </svg>
+        </loader-spinner>
+        <loader-spinner line></loader-spinner>
+        <loader-greetings>
+            <loader-greeting hi>Hi</loader-greeting>
+        </loader-greetings>
+        <loader-messages>
+            <loader-message wait>Please wait!</loader-message>
+            <loader-message ready>things are getting ready!</loader-message>
+        </loader-messages>
     </app-loader>
 </body>
 
