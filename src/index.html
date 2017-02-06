@@ -7,19 +7,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#DDEACF">
-    <link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32">
-    <script>
-        window.performance && performance.mark && performance.mark(`index.html`)
-        window.Polymer = {
-            dom: 'shadow'
-        }
-    </script>
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="/bower_components/ua-parser-js/dist/ua-parser.min.js"></script>
-    <link rel="import" href="/bower_components/polymer/polymer.html">
-    <link rel="import" href="/app/app.html">
+    <link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32">
+</head>
 
+<body>
     <style>
         html {
             max-width: 60rem;
@@ -28,6 +22,21 @@
             transition: .7s background;
             background: #080808;
             color: #4F4F4F;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+            font-size: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            font-family: menlo;
+        }
+
+        noscript,
+        nosupport {
+            display: none;
         }
 
         [screen=xx-small] {
@@ -52,59 +61,45 @@
             font-size: 90%;
         }
 
-        body {
-            margin: 0;
-            height: 100%;
+        [status="go"] x-loader,
+        [status="done"] x-loader {
+            display: none;
+        }
+
+        [status="loading"] x-app,
+        [status="loaded"] x-app,
+        [status="ready"] x-app {
+            display: none;
+        }
+
+        x-message {
+            display: none;
+        }
+
+        [status="loaded"] x-message[hi],
+        [status="ready"] x-message[hi] {
             display: flex;
-            font-size: 2rem;
-            flex-direction: column;
-            flex-grow: 1;
-            font-family: menlo;
         }
 
-        app-loader {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            font-size: 20px;
+        [status="ready"] x-message[ready] {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
-        loader-spinner[logo] path {
-            stroke-dasharray: 2000;
-            stroke-width: .5px;
-            fill: transparent;
-            stroke: gray;
-            animation: dash 2s cubic-bezier(.26, .66, 1, .37) infinite;
-        }
-
-        spinner-text {
-            color: #4c4c4c;
-            font-size: 0.7em;
-            font-weight: 400;
+        [status="loading"] x-message[loading] {
+            display: flex;
         }
 
         @keyframes dash {
             from {
-                stroke-dashoffset: -500;
+                stroke-dashoffset: -250;
             }
             to {
-                stroke-dashoffset: 500;
+                stroke-dashoffset: 100;
             }
-        }
-
-        noscript,
-        nosupport {
-            display: none;
         }
 
         @keyframes loaderSpinnerLine {
-            0 {
+            0% {
                 transform: translateX(-20%);
                 width: 100%;
             }
@@ -117,7 +112,15 @@
             }
         }
 
-        loader-spinner[line] {
+        x-spinner[logo] path {
+            stroke-dasharray: 2000;
+            stroke-width: .5px;
+            fill: transparent;
+            stroke: gray;
+            animation: dash 1s alternate cubic-bezier(.17, .67, .98, .65) both infinite;
+        }
+
+        x-spinner[line] {
             height: 1px;
             width: 30rem;
             box-sizing: border-box;
@@ -126,16 +129,7 @@
             background-color: gray;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        loader-spinner[line]:before {
+        x-spinner[line]:before {
             transform: translateX(-100%);
             display: block;
             position: absolute;
@@ -147,80 +141,89 @@
             animation: loaderSpinnerLine 2s linear infinite;
         }
     </style>
-</head>
-
-<body generation="modern">
     <script>
-        window.addEventListener('HTMLImportsLoaded', function (e) {
-            // all imports loaded
-            document.body.setAttribute('status', 'loading')
-        })
         let baseline = 24
-        window.onresize = reponsive
+        let body = document.body.parentNode
+        let userAgent = UAParser(navigator.userAgent)
 
-        window.onload = reponsive
-        let result = UAParser(navigator.userAgent);
+        window.performance && performance.mark && performance.mark(`index.html`)
+        window.Polymer = {
+            dom: 'shadow'
+        }
 
-        function reponsive() {
-            if (window.innerWidth > baseline * 10) { document.body.parentNode.setAttribute('screen', 'xx-small') }
-            if (window.innerWidth > baseline * 20) { document.body.parentNode.setAttribute('screen', 'x-small') }
-            if (window.innerWidth > baseline * 30) { document.body.parentNode.setAttribute('screen', 'small') }
-            if (window.innerWidth > baseline * 40) { document.body.parentNode.setAttribute('screen', 'medium') }
-            if (window.innerWidth > baseline * 50) { document.body.parentNode.setAttribute('screen', 'large') }
-            if (window.innerWidth > baseline * 60) { document.body.parentNode.setAttribute('screen', 'x-large') }
-            if (window.innerWidth > baseline * 80) { document.body.parentNode.setAttribute('screen', 'xx-large') }
-            document.body.parentNode.setAttribute('browser', result.browser.name.toLowerCase())
+        window.addEventListener('resize', resize)
+        window.addEventListener('DOMContentLoaded', domContentLoaded)
+        window.addEventListener('HTMLImportsLoaded', htmlImportsLoaded)
+        window.addEventListener('WebComponentsReady', webComponentsReady)
+
+        function resize(e) {
+            if (window.innerWidth > baseline * 10) { body.setAttribute('screen', 'xx-small') }
+            if (window.innerWidth > baseline * 20) { body.setAttribute('screen', 'x-small') }
+            if (window.innerWidth > baseline * 30) { body.setAttribute('screen', 'small') }
+            if (window.innerWidth > baseline * 40) { body.setAttribute('screen', 'medium') }
+            if (window.innerWidth > baseline * 50) { body.setAttribute('screen', 'large') }
+            if (window.innerWidth > baseline * 60) { body.setAttribute('screen', 'x-large') }
+            if (window.innerWidth > baseline * 80) { body.setAttribute('screen', 'xx-large') }
             return false
         }
-        reponsive()
-        window.addEventListener('HTMLImportsLoaded', function (e) {
-            // all imports loaded
 
-            setTimeout(function () {
-                document.body.parentNode.setAttribute('status', 'loaded')
+        function domContentLoaded(e) {
+            resize()
+            body.setAttribute('browser', userAgent.browser.name.toLowerCase())
+            return false
+        }
+
+        function htmlImportsLoaded(e) {
+            body.setAttribute('status', 'loading')
+            setTimeout(() => {
+                body.setAttribute('status', 'loaded')
                 window.scrollTo(0, 0)
-            }, 2000);
-        });
-        window.addEventListener('WebComponentsReady', function (e) {
+            }, 2000)
+            return false
+        }
 
-            // imports are loaded and elements have been registered
-            setTimeout(function () {
-                document.body.parentNode.setAttribute('status', 'ready')
-            }, 3000);
-            setTimeout(function () {
-                document.body.parentNode.setAttribute('status', 'go')
-                setTimeout(function () {
-                    document.body.parentNode.setAttribute('status', 'done')
-                }, 1000);
-            }, 5000);
-        });
+        function webComponentsReady(e) {
+            setTimeout(() => {
+                body.setAttribute('status', 'ready')
+            }, 3000)
+            setTimeout(() => {
+                body.setAttribute('status', 'go')
+                setTimeout(() => {
+                    body.setAttribute('status', 'done')
+                }, 1000)
+            }, 5000)
+            return false
+        }
     </script>
+
+    <link rel="import" href="/bower_components/polymer/polymer.html">
+    <link rel="import" href="/app/app.html">
     <noscript>Din webbläsare stödjer ej javascript :(</noscript>
     <nosupport>Din webbläsare är gammal!</nosupport>
-    <app-component>
-        <head-context>
-            <header slot="header">WEB EVANGELIST.</header>
+    <x-app>
+        <head-context slot="head">
+            <header>WEB EVANGELIST.</header>
         </head-context>
-        <main-context>
-
+        <main-context slot="main">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, a consequuntur repellat, magni debitis dignissimos
+                minima ex cumque autem veniam beatae veritatis, vel asperiores eius consequatur explicabo! Facere, expedita,
+                quae.
+            </p>
         </main-context>
-    </app-component>
-
-    <app-loader>
-        <loader-spinner logo>
+    </x-app>
+    <x-loader>
+        <x-spinner logo>
             <svg width="74px" height="52px" viewBox="0 0 74 52" version="1.1">
                 <path stroke="#000000" stroke-width="0.5" d="M44.137607,51 L15.379863,1 L29.759725,1 L58.517469,51 L44.137607,51 Z M65.706268,38.5 L44.137606,1 L58.517469,1 L72.897331,26 L65.706551,38.5 L65.706268,38.5 Z M1,26 L8.19078,13.5 L29.759442,51 L15.37958,51 L1,26 Z M44.137607,51 L51.326689,38.5 L58.517469,51 L44.137607,51 L44.137607,51 L44.137607,51 Z M36.948524,38.5 L44.137607,51 L51.326689,38.5 L36.948807,38.5 L36.948524,38.5 L36.948524,38.5 L36.948524,38.5 Z M29.759442,26 L36.948524,38.5 L44.137607,26 L29.759725,26 L29.759442,26 L29.759442,26 L29.759442,26 Z M51.375762,13.64782 L58.564845,26.14782 L65.753927,13.64782 L51.376046,13.64782 L51.375762,13.64782 L51.375762,13.64782 L51.375762,13.64782 Z M29.759442,26 L36.948524,13.5 L44.137607,26 L29.759725,26 L29.759442,26 L29.759442,26 L29.759442,26 Z M22.570643,13.5 L29.759725,26 L36.948807,13.5 L22.570926,13.5 L22.570643,13.5 L22.570643,13.5 L22.570643,13.5 Z M22.570643,13.5 L29.759725,1 L36.948807,13.5 L22.570926,13.5 L22.570643,13.5 L22.570643,13.5 L22.570643,13.5 Z M15.379863,1 L22.570643,13.5 L29.759725,1 L15.379863,1 L15.379863,1 L15.379863,1 Z M15.379863,51 L22.570643,38.5 L29.759725,51 L15.379863,51 L15.379863,51 L15.379863,51 Z M8.19078,38.5 L15.379863,51 L22.570643,38.5 L8.19078,38.5 L8.19078,38.5 L8.19078,38.5 Z M8.19078,38.5 L15.379863,26 L22.570643,38.5 L8.19078,38.5 L8.19078,38.5 L8.19078,38.5 Z M1,26 L8.19078,38.5 L15.379863,26 L1,26 L1,26 L1,26 Z M1,26 L8.19078,13.5 L15.379863,26 L1,26 L1,26 L1,26 Z M15.379863,26 L8.19078,13.5 L15.379863,1 L22.570643,13.5 L15.379863,26 L15.379863,26 L15.379863,26 Z M22.570643,13.5 L15.379863,1 L8.19078,13.5 L22.570643,13.5 L22.570643,13.5 L22.570643,13.5 Z M58.517186,51 L51.326406,38.5 L58.517186,26 L65.706268,38.5 L58.517186,51 L58.517186,51 L58.517186,51 Z M65.706268,38.5 L58.517186,51 L51.326406,38.5 L65.706268,38.5 L65.706268,38.5 L65.706268,38.5 Z M58.517186,26 L65.706268,38.5 L72.897048,26 L58.517186,26 L58.517186,26 L58.517186,26 Z M58.517186,26 L65.706268,13.5 L72.897048,26 L58.517186,26 L58.517186,26 L58.517186,26 Z M51.326406,13.5 L58.517186,1 L65.706268,13.5 L51.326406,13.5 L51.326406,13.5 L51.326406,13.5 Z M44.137606,1 L51.326689,13.5 L58.517469,1 L44.137606,1 L44.137606,1 L44.137606,1 Z"></path>
             </svg>
-        </loader-spinner>
-        <loader-spinner line></loader-spinner>
-        <loader-greetings>
-            <loader-greeting hi>Hi</loader-greeting>
-        </loader-greetings>
-        <loader-messages>
-            <loader-message wait>Please wait!</loader-message>
-            <loader-message ready>things are getting ready!</loader-message>
-        </loader-messages>
-    </app-loader>
+        </x-spinner>
+        <x-spinner line></x-spinner>
+        <x-messages>
+            <x-message hi>Hi</x-message>
+            <x-message loading>Please wait!</x-message>
+            <x-message ready>things are getting ready!</x-message>
+        </x-messages>
+    </x-loader>
 </body>
 
 </html>
