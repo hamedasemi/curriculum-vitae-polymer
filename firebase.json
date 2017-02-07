@@ -1,10 +1,6 @@
 {
     "hosting": {
         "public": "src",
-        "ignore": [
-            "**/node_modules/**",
-            "**/gulp/**"
-        ],
         "rewrites": [
             {
                 "source": "**",
