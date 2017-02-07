@@ -1,7 +1,7 @@
 {
-  "name": "book-polymer",
+  "name": "cv-polymer",
   "version": "0.0.0-build.0",
-  "description": "Book, a progressive web application.",
+  "description": "CV, a progressive web application.",
   "private": true,
   "engines": {
     "node": ">=6.0.0"
@@ -57,7 +57,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:hamedasemi/book-polymer.git"
+    "url": "git+ssh://git@github.com:hamedasemi/cv-polymer.git"
   },
   "author": "Hamed Asemi",
   "contributors": [
@@ -67,5 +67,5 @@
     }
   ],
   "license": "Hamed Asemi © 2017 All rights reserved.",
-  "homepage": "https://github.com/hamedasemi/book-polymer/blob/mainline/README.md"
+  "homepage": "https://github.com/hamedasemi/cv-polymer/blob/mainline/README.md"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "quran-polymer",
+  "name": "cv-polymer",
   "dependencies": {
     "polymer": "Polymer/polymer#2.0-preview",
     "ua-parser-js": "^0.7.12"
