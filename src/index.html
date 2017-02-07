@@ -100,10 +100,10 @@
 
         @keyframes loaderSpinnerLine {
             0% {
-                transform: translate3d(-150%,0,0);
+                transform: translate3d(-150%, 0, 0);
             }
             100% {
-                transform: translate3d(200%,0,0) scale(.8);
+                transform: translate3d(200%, 0, 0) scale(.8);
             }
         }
 
@@ -132,7 +132,7 @@
             left: 0;
             height: 100%;
             background-color: darkgray;
-            animation: loaderSpinnerLine 2s cubic-bezier(.55,.08,.38,1) infinite;
+            animation: loaderSpinnerLine 2s cubic-bezier(.55, .08, .38, 1) infinite;
         }
     </style>
     <script>
@@ -149,17 +149,6 @@
         window.addEventListener('DOMContentLoaded', domContentLoaded)
         window.addEventListener('HTMLImportsLoaded', htmlImportsLoaded)
         window.addEventListener('WebComponentsReady', webComponentsReady)
-
-        function resize(e) {
-            if (window.innerWidth > baseline * 10) { body.setAttribute('screen', 'xx-small') }
-            if (window.innerWidth > baseline * 20) { body.setAttribute('screen', 'x-small') }
-            if (window.innerWidth > baseline * 30) { body.setAttribute('screen', 'small') }
-            if (window.innerWidth > baseline * 40) { body.setAttribute('screen', 'medium') }
-            if (window.innerWidth > baseline * 50) { body.setAttribute('screen', 'large') }
-            if (window.innerWidth > baseline * 60) { body.setAttribute('screen', 'x-large') }
-            if (window.innerWidth > baseline * 80) { body.setAttribute('screen', 'xx-large') }
-            return false
-        }
 
         function domContentLoaded(e) {
             resize()
@@ -186,6 +175,17 @@
                     body.setAttribute('status', 'done')
                 }, 1000)
             }, 5000)
+            return false
+        }
+
+        function resize(e) {
+            if (window.innerWidth > baseline * 10) { body.setAttribute('screen', 'xx-small') }
+            if (window.innerWidth > baseline * 20) { body.setAttribute('screen', 'x-small') }
+            if (window.innerWidth > baseline * 30) { body.setAttribute('screen', 'small') }
+            if (window.innerWidth > baseline * 40) { body.setAttribute('screen', 'medium') }
+            if (window.innerWidth > baseline * 50) { body.setAttribute('screen', 'large') }
+            if (window.innerWidth > baseline * 60) { body.setAttribute('screen', 'x-large') }
+            if (window.innerWidth > baseline * 80) { body.setAttribute('screen', 'xx-large') }
             return false
         }
     </script>
