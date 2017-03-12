@@ -1,7 +1,7 @@
 {
   "name": "cv-polymer",
   "dependencies": {
-    "polymer": "Polymer/polymer#2.0-preview",
-    "ua-parser-js": "^0.7.12"
+    "ua-parser-js": "^0.7.12",
+    "polymer": "2.0.0-rc.2"
   }
 }
