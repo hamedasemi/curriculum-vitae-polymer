@@ -23,7 +23,7 @@
             background: #080808;
             color: #4F4F4F;
         }
-
+        
         body {
             margin: 0;
             height: 100%;
@@ -33,62 +33,62 @@
             flex-grow: 1;
             font-family: menlo;
         }
-
+        
         noscript,
         nosupport {
             display: none;
         }
-
+        
         [screen=xx-small] {
             font-size: 52.5%;
         }
-
+        
         [screen=small],
         [screen=x-small] {
             font-size: 55.5%;
         }
-
+        
         [screen=medium] {
             font-size: 62.5%;
         }
-
+        
         [screen=large],
         [screen=x-large] {
             font-size: 80%;
         }
-
+        
         [screen=xx-large] {
             font-size: 90%;
         }
-
+        
         [status="go"] x-loader,
         [status="done"] x-loader {
             display: none;
         }
-
+        
         [status="loading"] x-app,
         [status="loaded"] x-app,
         [status="ready"] x-app {
             display: none;
         }
-
+        
         x-message {
             display: none;
         }
-
+        
         [status="loaded"] x-message[hi],
         [status="ready"] x-message[hi] {
             display: flex;
         }
-
+        
         [status="ready"] x-message[ready] {
             display: flex;
         }
-
+        
         [status="loading"] x-message[loading] {
             display: flex;
         }
-
+        
         @keyframes dash {
             from {
                 stroke-dashoffset: -250;
@@ -97,7 +97,7 @@
                 stroke-dashoffset: 100;
             }
         }
-
+        
         @keyframes loaderSpinnerLine {
             0% {
                 transform: translate3d(-150%, 0, 0);
@@ -106,7 +106,7 @@
                 transform: translate3d(200%, 0, 0) scale(.8);
             }
         }
-
+        
         x-spinner[logo] path {
             stroke-dasharray: 2000;
             stroke-width: .5px;
@@ -114,7 +114,7 @@
             stroke: gray;
             animation: dash 1s alternate cubic-bezier(.17, .67, .98, .65) both 3;
         }
-
+        
         x-spinner[line] {
             height: 1px;
             width: 30rem;
@@ -123,7 +123,7 @@
             overflow: hidden;
             background-color: gray;
         }
-
+        
         x-spinner[line]:before {
             transform: translateX(-100%);
             position: absolute;
@@ -136,58 +136,62 @@
         }
     </style>
     <script>
-        let baseline = 24
-        let body = document.body.parentNode
-        let userAgent = UAParser(navigator.userAgent)
+        async function boot() {
+            let baseline = 24
+            let body = document.body.parentNode
+            let userAgent = UAParser(navigator.userAgent)
 
-        window.performance && performance.mark && performance.mark(`index.html`)
-        window.Polymer = {
-            dom: 'shadow'
-        }
+            window.performance && performance.mark && performance.mark(`index.html`)
+            window.Polymer = {
+                dom: 'shadow'
+            }
 
-        window.addEventListener('resize', resize)
-        window.addEventListener('DOMContentLoaded', domContentLoaded)
-        window.addEventListener('HTMLImportsLoaded', htmlImportsLoaded)
-        window.addEventListener('WebComponentsReady', webComponentsReady)
+            window.addEventListener('resize', resize)
+            window.addEventListener('DOMContentLoaded', domContentLoaded)
+            window.addEventListener('HTMLImportsLoaded', htmlImportsLoaded)
+            window.addEventListener('WebComponentsReady', webComponentsReady)
 
-        function domContentLoaded(e) {
-            resize()
-            body.setAttribute('browser', userAgent.browser.name.toLowerCase())
-            return false
-        }
+            function domContentLoaded(e) {
+                resize()
+                body.setAttribute('browser', userAgent.browser.name.toLowerCase())
+                return false
+            }
 
-        function htmlImportsLoaded(e) {
-            body.setAttribute('status', 'loading')
-            setTimeout(() => {
-                body.setAttribute('status', 'loaded')
-                window.scrollTo(0, 0)
-            }, 2000)
-            return false
-        }
-
-        function webComponentsReady(e) {
-            setTimeout(() => {
-                body.setAttribute('status', 'ready')
-            }, 3000)
-            setTimeout(() => {
-                body.setAttribute('status', 'go')
+            function htmlImportsLoaded(e) {
+                body.setAttribute('status', 'loading')
                 setTimeout(() => {
-                    body.setAttribute('status', 'done')
-                }, 1000)
-            }, 5000)
-            return false
-        }
+                    body.setAttribute('status', 'loaded')
+                    window.scrollTo(0, 0)
+                }, 2000)
+                return false
+            }
 
-        function resize(e) {
-            if (window.innerWidth > baseline * 10) { body.setAttribute('screen', 'xx-small') }
-            if (window.innerWidth > baseline * 20) { body.setAttribute('screen', 'x-small') }
-            if (window.innerWidth > baseline * 30) { body.setAttribute('screen', 'small') }
-            if (window.innerWidth > baseline * 40) { body.setAttribute('screen', 'medium') }
-            if (window.innerWidth > baseline * 50) { body.setAttribute('screen', 'large') }
-            if (window.innerWidth > baseline * 60) { body.setAttribute('screen', 'x-large') }
-            if (window.innerWidth > baseline * 80) { body.setAttribute('screen', 'xx-large') }
-            return false
+            function webComponentsReady(e) {
+                setTimeout(() => {
+                    body.setAttribute('status', 'ready')
+                }, 3000)
+                setTimeout(() => {
+                    body.setAttribute('status', 'go')
+                    setTimeout(() => {
+                        body.setAttribute('status', 'done')
+                    }, 1000)
+                }, 5000)
+                return false
+            }
+
+            function resize(e) {
+                if (window.innerWidth > baseline * 0) { body.setAttribute('screen', 'xx-small') }
+                if (window.innerWidth > baseline * 10) { body.setAttribute('screen', 'xx-small') }
+                if (window.innerWidth > baseline * 20) { body.setAttribute('screen', 'x-small') }
+                if (window.innerWidth > baseline * 30) { body.setAttribute('screen', 'small') }
+                if (window.innerWidth > baseline * 40) { body.setAttribute('screen', 'medium') }
+                if (window.innerWidth > baseline * 50) { body.setAttribute('screen', 'large') }
+                if (window.innerWidth > baseline * 60) { body.setAttribute('screen', 'x-large') }
+                if (window.innerWidth > baseline * 80) { body.setAttribute('screen', 'xx-large') }
+                return false
+            }
         }
+        boot()
     </script>
 
     <link rel="import" href="/bower_components/polymer/polymer.html">
