@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </script>
     <script src="../../web-component-tester/browser.js"></script>
-    <script src="../webcomponents-lite.js"></script>
+    <script src="../webcomponents-loader.js"></script>
     <link rel="import" href="imports/element-import-a.html">
   </head>
   <body>
@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       test('upgraded document tree', function(done) {
-        if (CustomElements.useNative || HTMLImports.useNative) {
+        if (CustomElements.useNative || !window.HTMLImports) {
           return done();
         } else {
           window.addEventListener('WebComponentsReady', function() {

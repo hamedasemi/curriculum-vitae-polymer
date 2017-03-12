@@ -13,7 +13,7 @@
     <title></title>
     <meta charset="UTF-8">
     <script src="../../web-component-tester/browser.js"></script>
-    <script src="../webcomponents-lite.js"></script>
+    <script src="../webcomponents-loader.js"></script>
   </head>
   <body>
     <script>
@@ -26,7 +26,7 @@
           // order expected
           assert.deepEqual(a1DocsList, ['a1-instance.html', 'a1-reference.html']);
           // style applied at upgrade time
-          if (!HTMLImports.useNative) {
+          if (window.HTMLImports) {
             assert.isTrue(styleAppliedToDocument);
           }
           done();

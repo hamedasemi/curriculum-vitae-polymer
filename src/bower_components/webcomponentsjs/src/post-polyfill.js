@@ -8,14 +8,50 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 
-(function(scope) {
+(function() {
 
   'use strict';
 
-  HTMLImports.whenReady(function() {
+  var customElements = window['customElements'];
+  var HTMLImports = window['HTMLImports'];
+
+  if (customElements && customElements['polyfillWrapFlushCallback']) {
+    // Here we ensure that the public `HTMLImports.whenReady`
+    // always comes *after* custom elements have upgraded.
+    var flushCallback;
+    var runAndClearCallback = function runAndClearCallback() {
+      if (flushCallback) {
+        var cb = flushCallback;
+        flushCallback = null;
+        cb();
+        return true;
+      }
+    }
+    var origWhenReady = HTMLImports['whenReady'];
+    customElements['polyfillWrapFlushCallback'](function(cb) {
+      flushCallback = cb;
+      origWhenReady(runAndClearCallback);
+    });
+
+    HTMLImports['whenReady'] = function(cb) {
+      origWhenReady(function() {
+        // custom element code may add dynamic imports
+        // to match processing of native custom elements before
+        // domContentLoaded, we wait for these imports to resolve first.
+        if (runAndClearCallback()) {
+          HTMLImports['whenReady'](cb);
+        } else {
+          cb();
+        }
+      });
+    }
+
+  }
+
+  HTMLImports['whenReady'](function() {
     requestAnimationFrame(function() {
       window.dispatchEvent(new CustomEvent('WebComponentsReady'));
     });
   });
 
-})(window.WebComponents);
+})();

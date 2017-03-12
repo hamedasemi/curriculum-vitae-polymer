@@ -23,6 +23,5 @@
   },
   "_source": "https://github.com/faisalman/ua-parser-js.git",
   "_target": "^0.7.12",
-  "_originalSource": "ua-parser-js",
-  "_direct": true
+  "_originalSource": "ua-parser-js"
 }
