@@ -30,7 +30,6 @@
             font-size: 2rem;
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
             font-family: menlo;
         }
         
@@ -121,7 +120,7 @@
             display: flex;
             position: relative;
             overflow: hidden;
-            background-color: gray;
+            background-color: #444;
         }
         
         x-spinner[line]:before {
@@ -137,20 +136,6 @@
     </style>
     <script>
         async function boot() {
-            let baseline = 24
-            let body = document.body.parentNode
-            let userAgent = UAParser(navigator.userAgent)
-
-            window.performance && performance.mark && performance.mark(`index.html`)
-            window.Polymer = {
-                dom: 'shadow'
-            }
-
-            window.addEventListener('resize', resize)
-            window.addEventListener('DOMContentLoaded', domContentLoaded)
-            window.addEventListener('HTMLImportsLoaded', htmlImportsLoaded)
-            window.addEventListener('WebComponentsReady', webComponentsReady)
-
             function domContentLoaded(e) {
                 resize()
                 body.setAttribute('browser', userAgent.browser.name.toLowerCase())
@@ -190,6 +175,19 @@
                 if (window.innerWidth > baseline * 80) { body.setAttribute('screen', 'xx-large') }
                 return false
             }
+            let baseline = 24
+            let body = document.body.parentNode
+            let userAgent = UAParser(navigator.userAgent)
+
+            window.performance && performance.mark && performance.mark(`index.html`)
+            window.Polymer = {
+                dom: 'shadow'
+            }
+
+            window.addEventListener('resize', resize)
+            window.addEventListener('DOMContentLoaded', domContentLoaded)
+            window.addEventListener('HTMLImportsLoaded', htmlImportsLoaded)
+            window.addEventListener('WebComponentsReady', webComponentsReady)
         }
         boot()
     </script>
@@ -199,14 +197,10 @@
     <noscript>Din webbläsare stödjer ej javascript :(</noscript>
     <nosupport>Din webbläsare är gammal!</nosupport>
     <x-app>
-        <head-context slot="head">
-            <header>WEB EVANGELIST.</header>
-        </head-context>
-        <main-context slot="main">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, a consequuntur repellat, magni debitis dignissimos
-                minima ex cumque autem veniam beatae veritatis, vel asperiores eius consequatur explicabo! Facere, expedita,
-                quae.
-            </p>
+        <head-context slot="head">WEB EVANGELIST.</head-context>
+        <main-context slot="main">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, a consequuntur repellat, magni debitis dignissimos
+            minima ex cumque autem veniam beatae veritatis, vel asperiores eius consequatur explicabo! Facere, expedita,
+            quae.
         </main-context>
     </x-app>
     <x-loader>
